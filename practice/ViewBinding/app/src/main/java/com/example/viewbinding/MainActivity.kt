@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.viewbinding.databinding.ActivityMainBinding
 import java.util.Date
+import java.util.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -17,12 +18,23 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        var rand = Random()
+
         binding.btnTime.setOnClickListener{
-            var currentTime = Date(System.currentTimeMillis()).toString()
+            var num = rand.nextInt(100)
+            var currentTime = "$num ${binding.etData.text.toString()} ${Date(System.currentTimeMillis()).toString()}"
 
-            Toast.makeText(this, currentTime, Toast.LENGTH_LONG).show()
+            if (binding.etData.text.isNotEmpty()) {
+                Toast.makeText(this, currentTime, Toast.LENGTH_LONG).show()
+                binding.tvHello.text = currentTime
+            } else {
+                binding.etData.setError("Ez nem lehet üres!")
+            }
+        }
 
-            binding.tvHello.text= currentTime
+        binding.btnExit.setOnClickListener {
+                finish()
+                System.exit(0)
+            }
         }
     }
-}
