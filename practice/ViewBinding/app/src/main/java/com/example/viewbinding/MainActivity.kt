@@ -3,6 +3,7 @@ package com.example.viewbinding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.viewbinding.databinding.ActivityMainBinding
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -14,6 +15,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        binding.tvHello.text="DEMO"
+
+        binding.btnTime.setOnClickListener{
+            binding.tvHello.text=Date(System.currentTimeMillis()).toString()
+        }
     }
 }
