@@ -35,6 +35,6 @@ class MainActivity : AppCompatActivity() {
         binding.btnExit.setOnClickListener {
                 finish()
                 System.exit(0)
-            }
         }
     }
+}
