@@ -2,6 +2,7 @@ package com.example.viewbinding
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.viewbinding.databinding.ActivityMainBinding
 import java.util.Date
 
@@ -17,7 +18,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.btnTime.setOnClickListener{
-            binding.tvHello.text=Date(System.currentTimeMillis()).toString()
+            var currentTime = Date(System.currentTimeMillis()).toString()
+
+            Toast.makeText(this, currentTime, Toast.LENGTH_LONG).show()
+
+            binding.tvHello.text= currentTime
         }
     }
 }
