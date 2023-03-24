@@ -1,11 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GuessGameTest</string>
     <string name="tvPleaseEnter">Please enter your guess:</string>
     <string name="tvGuessCount">"Number of tips: "</string>
     <string name="tvAnsverLine1">\?</string>
     <string name="etGuessHint">Your guess here</string>
     <string name="tvAnsverLine2Smaller">The number is smaller!</string>
-    <string name="tvAnsverLine2Bigger">The number is bigger!</string>
     <string name="btGuess">Guess</string>
     <string name="tvAnsverLine2Equal">The number is Equal!</string>
     <string name="tvAnsverLine2Start">Which number did i mean?</string>
