@@ -7,11 +7,13 @@ import com.example.enumclass.databinding.ActivityMainBinding
 enum class PaymentOption {
     CASH,
     CARD,
-    TRANSFER,
+    TRANSFER
 }
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    var paymentOption: PaymentOption = PaymentOption.CARD
 
     fun fnMain() {
         var str: String = ""
@@ -37,8 +39,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.button.setOnClickListener {
-            fnMain()
+            //fnMain()
+
+            // Rotate text from enum value
+            var tvStr: String = ""
+            var btStr: String = ""
+            when (paymentOption) {
+                PaymentOption.CARD -> { tvStr = "Card"; btStr = "Cash"; paymentOption = PaymentOption.CASH }
+                PaymentOption.CASH -> { tvStr = "Cash"; btStr = "Transfer"; paymentOption = PaymentOption.TRANSFER }
+                PaymentOption.TRANSFER -> { tvStr = "Transfer";  btStr = "Card"; paymentOption = PaymentOption.CARD }
+            }
+            binding.tvDisplay.text = tvStr
+            binding.button.text = btStr
         }
     }
-
 }
