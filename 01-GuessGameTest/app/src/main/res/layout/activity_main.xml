@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12sp"
-        android:background="#F44336"
+        android:background="@android:color/holo_red_dark"
         android:gravity="center_horizontal"
         android:padding="6sp">
 
@@ -54,9 +54,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/tvAnsverLine1"
+            android:text="@string/tvAnsverLine1Question"
             android:textAlignment="center"
-            android:textColor="#4CAF50"
+            android:textColor="@color/white"
             android:textSize="34sp" />
 
         <TextView
