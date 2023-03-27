@@ -5,7 +5,7 @@
     android:id="@+id/llvMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    android:gravity="center_horizontal|center_vertical"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -31,14 +31,16 @@
         android:id="@+id/btGuess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btGuess" />
+        android:text="@string/btGuess"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tvGuessCount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tvGuessCount"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="20sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tvAnsverLayout"

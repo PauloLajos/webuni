@@ -32,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        initItems()
+    }
+
+    private fun initItems() {
         //Generate random number, set actual guess counter
         fun generateRandomNumber() {
             rndNumber = (0..maxRndNumber).random() + 1
@@ -72,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                     //If the editText is not empty
                     if (binding.etGuess.text.isNotEmpty()) {
                         //Restart game?
-                        fun newGame(){
+                        fun newGame() {
                             binding.btGuess.text = getString(R.string.btGuessNewGame)
 
                             gameStatus = GameStatus.STOP
@@ -98,17 +102,19 @@ class MainActivity : AppCompatActivity() {
 
                             newGame()
 
-                        //Smaller guess
+                            //Smaller guess
                         } else if (nIntFromET > rndNumber) {
-                            binding.tvAnsverLine1.text = "${nIntFromET.toString()} ${getString(R.string.tvAnsverLine1Smaller)} X"
+                            binding.tvAnsverLine1.text =
+                                "${nIntFromET.toString()} ${getString(R.string.tvAnsverLine1Smaller)} X"
                             binding.tvAnsverLine2.text = getString(R.string.tvAnsverLine2Smaller)
 
-                        //Bigger guess
+                            //Bigger guess
                         } else if (nIntFromET < rndNumber) {
-                            binding.tvAnsverLine1.text = "${nIntFromET.toString()} ${getString(R.string.tvAnsverLine1Bigger)} X"
+                            binding.tvAnsverLine1.text =
+                                "${nIntFromET.toString()} ${getString(R.string.tvAnsverLine1Bigger)} X"
                             binding.tvAnsverLine2.text = getString(R.string.tvAnsverLine2Bigger)
 
-                        //Too many guess
+                            //Too many guess
                         } else if (actualGuessCount >= maxGuessCount) {
                             binding.tvAnsverLine1.text = getString(R.string.tvAnsverLine1Question)
                             binding.tvAnsverLine2.text = getString(R.string.tvAnsverLine2NotFindIt)
