@@ -2,10 +2,14 @@
 <resources>
     <string name="tvPleaseEnter">Please enter your guess:</string>
     <string name="tvGuessCount">"Number of tips: "</string>
-    <string name="tvAnsverLine1">\?</string>
+    <string name="tvAnsverLine1Question">\?</string>
     <string name="etGuessHint">Your guess here</string>
     <string name="tvAnsverLine2Smaller">The number is smaller!</string>
     <string name="btGuess">Guess</string>
     <string name="tvAnsverLine2Equal">The number is Equal!</string>
     <string name="tvAnsverLine2Start">Which number did i mean?</string>
+    <string name="btGuessNewGame">New game?</string>
+    <string name="tvAnsverLine1Bigger"><![CDATA[<]]></string>
+    <string name="tvAnsverLine1Smaller"><![CDATA[>]]></string>
+    <string name="tvAnsverLine1Equal">=</string>
 </resources>

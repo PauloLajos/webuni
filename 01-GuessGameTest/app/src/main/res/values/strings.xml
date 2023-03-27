@@ -2,11 +2,17 @@
     <string name="app_name">GuessGameTest</string>
     <string name="tvPleaseEnter">Please enter your guess:</string>
     <string name="tvGuessCount">"Number of tips: "</string>
-    <string name="tvAnsverLine1">\?</string>
+    <string name="tvAnsverLine1Question">\?"</string>
+    <string name="tvAnsverLine1Bigger"><![CDATA[<]]></string>
+    <string name="tvAnsverLine1Smaller"><![CDATA[>]]></string>
     <string name="etGuessHint">Your guess here</string>
     <string name="tvAnsverLine2Smaller">The number is smaller!</string>
     <string name="tvAnsverLine2Bigger">The number is bigger!</string>
-    <string name="btGuess">Guess</string>
     <string name="tvAnsverLine2Equal">The number is Equal!</string>
-    <string name="tvAnsverLine2Start">Which number did i mean?</string>
+    <string name="tvAnsverLine2Start">"Which number did i mean?\n(1-40)"</string>
+    <string name="tvAnsverLine2FindIt">Find it!</string>
+    <string name="tvAnsverLine2NotFindIt">Not find it, sorry!</string>
+    <string name="btGuess">Guess</string>
+    <string name="btGuessNewGame">New game?</string>
+    <string name="tvAnsverLine1Equal">=</string>
 </resources>
