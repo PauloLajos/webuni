@@ -58,7 +58,7 @@ object TicTacToeModel {
             if ( m0 == gamer && m1 == gamer && m2 == gamer) {
                 return gamer
             } else {
-                if(matrix[ win[i][0].toInt() ] == EMPTY) empty = true
+                if(m0 == EMPTY || m1 == EMPTY || m2 == EMPTY ) empty = true
             }
         }
         return if (empty) CONTINUE else DRAW

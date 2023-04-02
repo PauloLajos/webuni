@@ -1,5 +1,6 @@
 package com.example.tictactoe.view
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
@@ -102,6 +103,7 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {
             val tX = event.x.toInt() / (width / 3)
@@ -118,12 +120,12 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
                     var winer = "O"
                     if (TicTacToeModel.getNextPlayer() == TicTacToeModel.CROSS) winer = "X"
 
-                    fun basicAlert(view: View){
-                        val positiveButtonClick = { dialog: DialogInterface, which: Int ->
+                    fun basicAlert(){
+                        val positiveButtonClick = { _: DialogInterface, _: Int ->
                             // New game
                             resetGame()
                         }
-                        val negativeButtonClick = {dialog: DialogInterface, which: Int ->
+                        val negativeButtonClick = { _: DialogInterface, _: Int ->
                             //END
                             endGame()
                         }
@@ -132,7 +134,11 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
                         with(builder)
                         {
                             setTitle("The end")
-                            setMessage("Winer is $winer\nNew game?")
+                            if (winnerStatus == TicTacToeModel.DRAW)
+                                setMessage("The game is draw\nNew game?")
+                            else
+                                setMessage("Winer is $winer\nNew game?")
+
                             setPositiveButton("OK", DialogInterface.OnClickListener(function = positiveButtonClick))
                             setNegativeButton("No", negativeButtonClick)
                             //setNeutralButton("Maybe", neutralButtonClick)
@@ -140,7 +146,7 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
                         }
                     }
 
-                    basicAlert(this)
+                    basicAlert()
                     invalidate()
                 } else {
                     TicTacToeModel.changeNextPlayer()
@@ -163,13 +169,13 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
         invalidate()
     }
 
-    public fun resetGame() {
+    fun resetGame() {
         TicTacToeModel.resetModel()
         showNextPlayer()
         invalidate()
     }
 
-    fun endGame() {
+    private fun endGame() {
         Toast.makeText((context as MainActivity), "Good bye!", Toast.LENGTH_SHORT).show()
         (context as MainActivity).finish()
     }
