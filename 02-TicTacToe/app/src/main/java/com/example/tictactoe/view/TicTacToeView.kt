@@ -1,6 +1,8 @@
 package com.example.tictactoe.view
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -92,16 +94,49 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
 
             if (tX < 3 && tY < 3 && TicTacToeModel.getFieldContent(tX, tY) == TicTacToeModel.EMPTY) {
                 TicTacToeModel.setFieldContent(tX, tY, TicTacToeModel.getNextPlayer())
-                TicTacToeModel.changeNextPlayer()
 
-                nextPlayer()
+                // érdemes itt vizsgálni hogy van-e győztes...
+                // Házi feladat
+                val winnerStatus = TicTacToeModel.getWinner(TicTacToeModel.getNextPlayer())
+
+                if (winnerStatus != TicTacToeModel.CONTINUE) {
+                    var winer = "O"
+                    if (TicTacToeModel.getNextPlayer() == TicTacToeModel.CROSS) winer = "X"
+
+                    fun basicAlert(view: View){
+                        val positiveButtonClick = { dialog: DialogInterface, which: Int ->
+                            resetGame()
+                        }
+                        val negativeButtonClick = {dialog: DialogInterface, which: Int ->
+                            //END
+                        }
+
+                        val builder = AlertDialog.Builder((context as MainActivity))
+                        with(builder)
+                        {
+                            setTitle("The end")
+                            setMessage("Winer is $winer\nNew game?")
+                            setPositiveButton("OK", DialogInterface.OnClickListener(function = positiveButtonClick))
+                            setNegativeButton("No", negativeButtonClick)
+                            //setNeutralButton("Maybe", neutralButtonClick)
+                            show()
+                        }
+                    }
+
+                    basicAlert(this)
+                    invalidate()
+                } else {
+                    TicTacToeModel.changeNextPlayer()
+                }
+
+                showNextPlayer()
             }
         }
 
         return super.onTouchEvent(event)
     }
 
-    private fun nextPlayer() {
+    private fun showNextPlayer() {
         var next = "O"
         if (TicTacToeModel.getNextPlayer() == TicTacToeModel.CROSS) {
             next = "X"
@@ -113,7 +148,7 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
 
     public fun resetGame() {
         TicTacToeModel.resetModel()
-        nextPlayer()
+        showNextPlayer()
         invalidate()
     }
 }
