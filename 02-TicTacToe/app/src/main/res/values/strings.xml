@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">TicTacToe</string>
+    <string name="app_name" translatable="false">TicTacToe</string>
+    <string name="text_welcome" translatable="false">Hello TicTacToe!</string>
+    <string name="text_next_player" translatable="false">The next player is: %1$s</string>
 </resources>

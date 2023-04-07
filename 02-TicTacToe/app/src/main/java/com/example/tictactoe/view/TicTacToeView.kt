@@ -12,6 +12,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import com.example.tictactoe.MainActivity
+import com.example.tictactoe.R
 import com.example.tictactoe.model.TicTacToeModel
 
 class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -164,7 +165,10 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
         if (TicTacToeModel.getNextPlayer() == TicTacToeModel.CROSS) {
             next = "X"
         }
-        (context as MainActivity).showText("Next player is: $next")
+        (context as MainActivity).showText(
+            //"Next player is: $next")
+            context.resources.getString(R.string.text_next_player, next)
+        )
 
         invalidate()
     }
