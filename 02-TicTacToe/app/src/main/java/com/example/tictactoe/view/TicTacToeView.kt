@@ -179,4 +179,11 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
         Toast.makeText((context as MainActivity), "Good bye!", Toast.LENGTH_SHORT).show()
         (context as MainActivity).finish()
     }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val w = View.MeasureSpec.getSize(widthMeasureSpec)
+        val h = View.MeasureSpec.getSize(heightMeasureSpec)
+        val d = if (w == 0) h else if (h == 0) w else if (w < h) w else h
+        setMeasuredDimension(d, d)
+    }
 }
