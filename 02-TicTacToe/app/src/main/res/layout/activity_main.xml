@@ -25,6 +25,9 @@
 
     </LinearLayout>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <TextView
         android:id="@+id/tvData"
         android:layout_width="wrap_content"
@@ -32,6 +35,7 @@
         android:text="O is the next"
         android:textColor="#0033EC"
         android:textSize="24sp" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <Button
         android:id="@+id/btnReset"

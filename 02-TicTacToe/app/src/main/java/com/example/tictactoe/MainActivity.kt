@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.tictactoe.databinding.ActivityMainBinding
 
-
+/*
+    Külső könyvtárak:
+    https://facebook.github.io/shimmer-android/
+    https://github.com/wasabeef/awesome-android-ui
+*/
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
