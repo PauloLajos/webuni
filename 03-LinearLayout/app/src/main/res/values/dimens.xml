@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="weightSumMax">4</dimen>
+    <dimen name="layoutWeight1">1</dimen>
+    <dimen name="layoutWeight2">2</dimen>
+    <dimen name="buttonPadding">10dp</dimen>
+</resources>
