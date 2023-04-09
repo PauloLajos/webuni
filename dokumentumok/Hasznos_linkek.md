@@ -30,3 +30,6 @@ https://www.developerdrive.com/best-android-development-tools-resources/
 
 **10 Completely free resources to help you learn android development
 https://www.makeuseof.com/android-development-free-resources/
+
+Build a responsive UI with ConstraintLayout
+https://developer.android.com/develop/ui/views/layout/constraint-layout#kts
