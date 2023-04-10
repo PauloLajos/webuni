@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">LoginLayoutDemo</string>
+    <string name="btAbout">About</string>
+    <string name="btHelp">Help</string>
+    <string name="btRegister">Register</string>
+    <string name="btLogin">Login</string>
+    <string name="etWelcome">Welcome</string>
+    <string name="htPassword">Password</string>
+    <string name="htUsername">Username</string>
 </resources>

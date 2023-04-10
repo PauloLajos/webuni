@@ -9,14 +9,14 @@
     <Button
         android:id="@+id/btAbout"
         style="@style/btStyle"
-        android:text="About"
+        android:text="@string/btAbout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btHelp"
         style="@style/btStyle"
-        android:text="Help"
+        android:text="@string/btHelp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -33,7 +33,7 @@
             android:id="@+id/tvWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome"
+            android:text="@string/etWelcome"
             android:textSize="34sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,8 @@
         <EditText
             android:id="@+id/etPassword"
             style="@style/etStyle"
-            android:hint="Password"
+            android:autofillHints="password"
+            android:hint="@string/htPassword"
             android:inputType="textPassword"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,24 +58,25 @@
 
         <EditText
             android:id="@+id/etUserName"
-            android:hint="Username"
+            style="@style/etStyle"
+            android:autofillHints="name"
+            android:hint="@string/htUsername"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toTopOf="@+id/etPassword"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            style="@style/etStyle" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btRegister"
             style="@style/btStyle"
-            android:text="Register"
+            android:text="@string/btRegister"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline" />
 
         <Button
             android:id="@+id/btLogin"
             style="@style/btStyle"
-            android:text="Login"
+            android:text="@string/btLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline" />
 
