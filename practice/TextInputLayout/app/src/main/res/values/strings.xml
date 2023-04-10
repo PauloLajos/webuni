@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TextInputLayout</string>
+    <string name="etUsername">Username</string>
+    <string name="etPassword">Password</string>
+    <string name="btLogin">Login</string>
+    <string name="btRegister">Register</string>
+</resources>
