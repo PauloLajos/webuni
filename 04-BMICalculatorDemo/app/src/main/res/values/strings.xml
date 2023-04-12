@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BMICalculatorDemo</string>
+    <string name="strCurrentHeight">%1$d cm</string>
+</resources>
