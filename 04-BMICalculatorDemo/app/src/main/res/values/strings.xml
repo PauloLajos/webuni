@@ -3,4 +3,8 @@
     <string name="strCurrentHeight">%1$d cm</string>
     <string name="strLabelHeight">Height</string>
     <string name="strCalculateYourBmi">Calculate your BMI</string>
+    <string name="strFemale">Female</string>
+    <string name="strMale">Male</string>
+    <string name="strAge">Age</string>
+    <string name="strWeight">Weight</string>
 </resources>
