@@ -7,4 +7,6 @@
     <string name="strMale">Male</string>
     <string name="strAge">Age</string>
     <string name="strWeight">Weight</string>
+    <string name="strDecrement">Decrement</string>
+    <string name="strIncrement">Increment</string>
 </resources>

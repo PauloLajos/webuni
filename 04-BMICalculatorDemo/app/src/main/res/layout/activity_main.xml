@@ -18,6 +18,7 @@
         android:id="@+id/clMale"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:background="@drawable/cardbackground"
         app:layout_constraintBottom_toTopOf="@+id/heightLayout"
         app:layout_constraintEnd_toStartOf="@+id/centerVerticalLine"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,14 +26,15 @@
 
         <ImageView
             android:id="@+id/ivMale"
-            android:layout_width="170px"
-            android:layout_height="170px"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:contentDescription="@string/strMale"
+            app:srcCompat="@drawable/male" />
 
         <TextView
             android:layout_width="match_parent"
@@ -51,6 +53,7 @@
         android:id="@+id/clFemale"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:background="@drawable/cardbackground"
         app:layout_constraintBottom_toTopOf="@+id/heightLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/centerVerticalLine"
@@ -58,14 +61,15 @@
 
         <ImageView
             android:id="@+id/ivFemale"
-            android:layout_width="170px"
-            android:layout_height="170px"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:contentDescription="@string/strFemale"
+            app:srcCompat="@drawable/female" />
 
         <TextView
             android:layout_width="match_parent"
@@ -84,6 +88,7 @@
         android:id="@+id/clWeight"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:background="@drawable/cardbackground"
         app:layout_constraintBottom_toTopOf="@+id/btCalculateBmi"
         app:layout_constraintEnd_toStartOf="@+id/centerVerticalLine"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +98,7 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="@string/strWeight"
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -110,13 +116,17 @@
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             tools:layout_editor_absoluteX="0dp"
+            android:layout_marginTop="10dp"
             tools:text="55" />
 
         <ImageView
             android:id="@+id/decrementWeight"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="@string/strDecrement"
+            android:src="@drawable/minus"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -124,7 +134,10 @@
             android:id="@+id/incrementWeight"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="@string/strIncrement"
+            android:src="@drawable/add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -134,6 +147,7 @@
         android:id="@+id/clAge"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:background="@drawable/cardbackground"
         app:layout_constraintBottom_toTopOf="@+id/btCalculateBmi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/centerVerticalLine"
@@ -143,6 +157,7 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="@string/strAge"
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -159,13 +174,17 @@
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            tools:text="55" />
+            android:layout_marginTop="10dp"
+            tools:text="35" />
 
         <ImageView
             android:id="@+id/decrementAge"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/minus"
+            android:contentDescription="@string/strDecrement"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -173,7 +192,10 @@
             android:id="@+id/incrementAge"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/add"
+            android:contentDescription="@string/strIncrement"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
