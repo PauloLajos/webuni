@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/ok" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/clResult"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:background="@drawable/focuscardbackground"
@@ -50,13 +50,13 @@
             android:textColor="@color/white"
             android:textSize="50sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView6"
+            app:layout_constraintBottom_toTopOf="@+id/tvBmiCategory"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/genderDisplay" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/tvBmiCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -84,6 +84,6 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/clResult" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

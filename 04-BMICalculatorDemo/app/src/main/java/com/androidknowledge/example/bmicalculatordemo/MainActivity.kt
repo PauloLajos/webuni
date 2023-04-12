@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.androidknowledge.example.bmicalculatordemo.databinding.ActivityMainBinding
 
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     var intAge: Int = 35
     var currentProgress: Int = 170
     var typeOfUser: String = "0"
-    var mintProgress: String = currentProgress.toString()
+    //var mintProgress: String = currentProgress.toString()
     var weight: String = intWeight.toString()
     var age: String = intAge.toString()
 
@@ -67,12 +68,40 @@ class MainActivity : AppCompatActivity() {
             typeOfUser = "Female"
         }
 
+        // Set weight
+        binding.incrementWeight.setOnClickListener {
+            if (intWeight < 200) intWeight++
+            binding.tvCurrentWeight.text = intWeight.toString()
+        }
+        binding.decrementWeight.setOnClickListener {
+            if (intWeight > 0) intWeight--
+            binding.tvCurrentWeight.text = intWeight.toString()
+        }
 
+        // Set age
+        binding.incrementAge.setOnClickListener {
+            if (intAge < 120) intAge++
+            binding.tvCurrentAge.text = intAge.toString()
+        }
+        binding.decrementAge.setOnClickListener {
+            if (intAge > 0) intAge--
+            binding.tvCurrentAge.text = intAge.toString()
+        }
 
         // Calculate BMI
         binding.btCalculateBmi.setOnClickListener {
-            val intent = Intent(this, BmiActivity::class.java)
-            startActivity(intent)
+            if (typeOfUser != "0") {
+                val intent = Intent(this@MainActivity, BmiActivity::class.java)
+
+                intent.putExtra("gender", typeOfUser)
+                intent.putExtra("height", currentProgress.toString())
+                intent.putExtra("weight", intWeight.toString())
+                intent.putExtra("age", intAge.toString())
+
+                startActivity(intent)
+            } else {
+                Toast.makeText(this@MainActivity, getString(R.string.strSelectGenderFirst), Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

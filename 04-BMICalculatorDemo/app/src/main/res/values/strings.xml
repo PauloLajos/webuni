@@ -15,4 +15,5 @@
     <string name="strReCalculateYourBmi">Recalculate your BMI</string>
     <string name="strBmiFinalLogo">Bmi final logo</string>
     <string name="strResultLogo">Result logo</string>
+    <string name="strSelectGenderFirst">Select your gender first!</string>
 </resources>
