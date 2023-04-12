@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             toastUserName("Login", it)
         }
 
-        // Use setOnCliclListener() With a Callback in Kotlin
+        // Use setOnClickListener() With a Callback in Kotlin
         binding.btRegister.setOnClickListener(object: View.OnClickListener{
             override fun onClick(view: View?) {
                 toastUserName("Register", view)
@@ -48,13 +48,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         })
 
         // Use setOnClickListener() With a Lambda Expression in Kotlin
-        binding.btAbout.setOnClickListener (View.OnClickListener { view ->
-            toastUserName("About", view)
-        })
+        binding.btAbout.setOnClickListener { view -> toastUserName("About", view) }
+
+        // Use the View.OnClickListener Interface on the MainActivity Class in Kotlin
+        binding.btHelp.setOnClickListener(this) // Applying onCLick Listener to the button
     }
 
     // Use the View.OnClickListener Interface on the MainActivity Class in Kotlin
-    // class MainActivity : AppCompatActivity(), View.OnClickListener {}
+    //   class MainActivity : AppCompatActivity(), View.OnClickListener {}
+    //   binding.btHelp.setOnClickListener(this)
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btHelp -> {
