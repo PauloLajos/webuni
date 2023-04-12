@@ -1,7 +1,8 @@
 package com.androidknowledge.example.bmicalculatordemo
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Resources
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.androidknowledge.example.bmicalculatordemo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,5 +17,8 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        // Set strCurrentHeight to starting value
+        val res: Resources = resources
+        binding.tvCurrentHeight.text = String.format(res.getString(R.string.strCurrentHeight), 170)
     }
 }
