@@ -7,6 +7,29 @@
     android:background="@color/black"
     tools:context=".MainActivity">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerVerticalLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <Button
+        android:id="@+id/btCalculateBmi"
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:textSize="15sp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/strCalculateYourBmi"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:backgroundTint="#ff4c4c"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/heightLayout"
         android:layout_width="340dp"
@@ -44,13 +67,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/strCurrentHeight"
-            tools:text="170"
             android:textColor="@color/white"
             android:textSize="40sp"
             app:layout_constraintBottom_toTopOf="@+id/centerHorizontalLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/centerHorizontalLine" />
+            app:layout_constraintTop_toTopOf="@+id/centerHorizontalLine"
+            tools:text="170" />
 
         <SeekBar
             android:id="@+id/seekBarForHeight"
