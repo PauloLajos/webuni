@@ -16,8 +16,10 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        val demoAnim = AnimationUtils.loadAnimation( this@MainActivity, R.anim.demo_anim)
+
         binding.btnAnim.setOnClickListener {
-            val demoAnim = AnimationUtils.loadAnimation( this@MainActivity, R.anim.demo_anim)
+            binding.layoutMain.startAnimation(demoAnim)
             binding.btnAnim.startAnimation(demoAnim)
         }
     }
