@@ -13,4 +13,9 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="MyFancyTheme" parent="@style/Theme.StyleAndThemeDemo">
+        <item name="android:textViewStyle">@style/MyTextStyle</item>
+    </style>
+
 </resources>
