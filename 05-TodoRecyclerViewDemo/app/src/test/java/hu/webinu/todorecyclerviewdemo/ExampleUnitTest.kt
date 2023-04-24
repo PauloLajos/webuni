@@ -1,4 +1,4 @@
-package com.android.developer.todorecyclerviewdemo
+package hu.webinu.todorecyclerviewdemo
 
 import org.junit.Test
 

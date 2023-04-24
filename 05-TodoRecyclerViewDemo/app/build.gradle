@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.android.developer.todorecyclerviewdemo'
+    namespace 'hu.webinu.todorecyclerviewdemo'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.android.developer.todorecyclerviewdemo"
+        applicationId "hu.webinu.todorecyclerviewdemo"
         minSdk 24
         targetSdk 33
         versionCode 1
