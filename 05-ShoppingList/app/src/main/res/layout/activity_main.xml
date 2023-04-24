@@ -32,7 +32,7 @@
                 android:id="@+id/expandedImage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/shopping_carts"
+                android:src="@drawable/shopping_carts_dark"
                 android:scaleType="centerCrop"
                 android:contentDescription="@string/shopping_carts" />
 
@@ -51,7 +51,7 @@
         android:id="@+id/recyclerShoppingView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
+        android:padding="8dp"
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
