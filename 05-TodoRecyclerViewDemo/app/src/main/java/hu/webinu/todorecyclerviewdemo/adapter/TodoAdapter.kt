@@ -54,6 +54,11 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         holder.cbDone.text = todoItem.todoText
     }
 
+    fun addTodo(todo: Todo) {
+        todoItems.add(todo)
+        notifyItemInserted(todoItems.lastIndex)
+    }
+
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var tvDate: TextView = itemView.findViewById(R.id.tvDate)
         var cbDone: CheckBox = itemView.findViewById(R.id.cbDone)

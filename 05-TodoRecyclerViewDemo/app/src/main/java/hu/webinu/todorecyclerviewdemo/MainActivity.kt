@@ -3,9 +3,10 @@ package hu.webinu.todorecyclerviewdemo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import hu.webinu.todorecyclerviewdemo.adapter.TodoAdapter
+import hu.webinu.todorecyclerviewdemo.data.Todo
 import hu.webinu.todorecyclerviewdemo.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TodoDialog.TodoHandler {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -21,5 +22,13 @@ class MainActivity : AppCompatActivity() {
 
         todoAdapter = TodoAdapter(this@MainActivity)
         binding.recyclerTodo.adapter = todoAdapter
+
+        binding.fab.setOnClickListener {
+            TodoDialog().show(supportFragmentManager, "Dialog")
+        }
+    }
+
+    override fun todoCreated(todo: Todo) {
+        todoAdapter.addTodo(todo)
     }
 }
