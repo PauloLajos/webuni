@@ -3,4 +3,6 @@
     <string name="page_title">Page Title</string>
     <string name="content_description_media">Background image</string>
     <string name="long_text">...</string>
+    <string name="data">Data</string>
+    <string name="date">Date</string>
 </resources>
