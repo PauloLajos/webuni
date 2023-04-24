@@ -13,4 +13,13 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.ShoppingList.NoActionBar" parent="Theme.ShoppingList">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.CollapseToolbar.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
+
+    <style name="Theme.CollapseToolbar.PopupOverlay" parent="ThemeOverlay.AppCompat" />
 </resources>

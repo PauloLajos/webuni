@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ShoppingList</string>
+    <string name="estimated_bought">Estimated bought</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="item_logo">Item logo</string>
+    <string name="add_item">Add item</string>
+    <string name="shopping_list">Shopping List</string>
+    <string name="shopping_carts">Shopping karts logo</string>
 </resources>
