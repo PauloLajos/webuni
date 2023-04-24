@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RecyclerViewPizza</string>
+    <string name="pasta">Pasta</string>
+    <string name="pizza_image">Pizza image</string>
 </resources>
