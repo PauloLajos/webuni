@@ -12,19 +12,22 @@
         android:theme="@style/Theme.ShoppingList"
         tools:targetApi="31">
         <activity
+            android:name=".additem.AddItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".splashscreen.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.SplashScreen.FullScreen" >
+            android:theme="@style/Theme.SplashScreen.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.ShoppingList.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.ShoppingList.NoActionBar" />
     </application>
 
 </manifest>

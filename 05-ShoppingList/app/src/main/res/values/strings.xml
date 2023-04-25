@@ -8,4 +8,9 @@
     <string name="shopping_list">Shopping List</string>
     <string name="shopping_carts">Shopping karts logo</string>
     <string name="loading">Loading…</string>
+    <string name="add_shopping_item">Add shopping item</string>
+    <string name="name">Name</string>
+    <string name="add_item_logo">Add item logo</string>
+    <string name="type">Type:</string>
+    <string name="list_of_type">List of type</string>
 </resources>
