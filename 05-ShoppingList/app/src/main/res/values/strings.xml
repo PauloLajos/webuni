@@ -7,4 +7,5 @@
     <string name="add_item">Add item</string>
     <string name="shopping_list">Shopping List</string>
     <string name="shopping_carts">Shopping karts logo</string>
+    <string name="loading">Loading…</string>
 </resources>
