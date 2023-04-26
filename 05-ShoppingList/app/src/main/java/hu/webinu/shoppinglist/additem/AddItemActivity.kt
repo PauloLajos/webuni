@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import hu.webinu.shoppinglist.MainActivity
 import hu.webinu.shoppinglist.R
+import hu.webinu.shoppinglist.data.ShoppingItem
 import hu.webinu.shoppinglist.databinding.ActivityAddItemBinding
 
 
@@ -45,15 +46,20 @@ class AddItemActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         }
 
         binding.btnAddItem.setOnClickListener {
-            val intent = Intent(applicationContext, MainActivity::class.java)
+            val shoppingItem = ShoppingItem (
+                //binding.itemType.toString(),
+                "Food",
+                binding.etItemName.text.toString(),
+                binding.etItemDescription.text.toString(),
+                binding.etEstimatedPrice.text.toString().toFloat(),
+                binding.checkBox.isChecked
+            )
 
-            intent.putExtra("itemType", binding.itemType.toString())
-            intent.putExtra("itemName", binding.etItemName.text.toString())
-            intent.putExtra("itemDescription", binding.etItemDescription.text.toString())
-            intent.putExtra("itemPrice", binding.etEstimatedPrice.text.toString())
-            intent.putExtra("itemBought", binding.checkBox.isChecked.toString())
-
+            val intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("shoppingItem", shoppingItem)
+            }
             startActivity(intent)
+
             finish()
         }
     }
@@ -63,7 +69,7 @@ class AddItemActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         val item = parent.getItemAtPosition(position).toString()
 
         // Showing selected spinner item
-        //Toast.makeText(parent.context, "Selected: $item", Toast.LENGTH_LONG).show()
+        Toast.makeText(parent.context, "Selected: $item", Toast.LENGTH_LONG).show()
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {

@@ -1,9 +1,10 @@
 package hu.webinu.shoppinglist
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.webinu.shoppinglist.adapter.ShoppingAdapter
 import hu.webinu.shoppinglist.additem.AddItemActivity
@@ -14,8 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var itemList: ArrayList<ShoppingItem>
-    private lateinit var shoppingAdapter: ShoppingAdapter
+     lateinit var itemList: ArrayList<ShoppingItem>
+     lateinit var shoppingAdapter: ShoppingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         itemList = ArrayList()
         shoppingAdapter = ShoppingAdapter(itemList)
+        // sample data load
         shoppingListItems()
 
         binding.recyclerShoppingView.layoutManager = LinearLayoutManager(this)
@@ -38,26 +40,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // create the get Intent object
-        val intent = intent
-        // receive the value by getStringExtra() method and
-        // key must be same which is send by first activity
-        val str = intent.getStringExtra("itemName")
-        // display the string
-        if (str?.isEmpty() == false) {
-            itemList.add(
-                ShoppingItem(
-                    //intent.getStringExtra("itemType").toString(),
-                    "Food",
-                    str,
-                    intent.getStringExtra("itemDescription").toString(),
-                    intent.getStringExtra("itemPrice")!!.toFloat(),
-                    intent.getStringExtra("itemBought").toString().toBoolean()
-                )
-            )
-
-            Toast.makeText((this@MainActivity), str, Toast.LENGTH_SHORT).show()
+        val bundle: Bundle? = intent.extras
+        //Parcelable Data
+        val sitem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("shoppingItem", ShoppingItem::class.java)
+        } else {
+            intent.getParcelableExtra<ShoppingItem>("shoppingItem")
         }
+        //val sitem: ShoppingItem? = getParcelable("shoppingItem")
+        Toast.makeText((this@MainActivity), sitem!!.name.toString(), Toast.LENGTH_SHORT).show()
+        itemList.add(sitem)
     }
 
     private fun shoppingListItems(){

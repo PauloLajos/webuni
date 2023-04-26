@@ -38,5 +38,19 @@ class ShoppingAdapter(private val shoppingItemList : ArrayList<ShoppingItem>):
         holder.tvPrice.text = currentItem.estimatedPrice.toString()
         holder.cbBought.isChecked = currentItem.boughtStatus
 
+        holder.btnDelete.setOnClickListener {
+            deleteShoppingItem(holder.adapterPosition)
+        }
+
+    }
+
+    fun addShoppingItem(shoppingItem: ShoppingItem){
+        shoppingItemList.add(shoppingItem)
+        notifyItemInserted(shoppingItemList.lastIndex)
+    }
+
+    private fun deleteShoppingItem(position: Int) {
+        shoppingItemList.removeAt(position)
+        notifyItemRemoved(position)
     }
 }
