@@ -1,5 +1,6 @@
 package hu.webinu.shoppinglist.adapter
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import hu.webinu.shoppinglist.R
 import hu.webinu.shoppinglist.data.ShoppingItem
 
+
 class ShoppingAdapter(private val shoppingItemList : ArrayList<ShoppingItem>):
     RecyclerView.Adapter<ShoppingAdapter.ItemViewHolder>() {
 
@@ -18,6 +20,7 @@ class ShoppingAdapter(private val shoppingItemList : ArrayList<ShoppingItem>):
         // This is where we now collect our values from XML
         val tvName: TextView = itemView.findViewById(R.id.tvName)
         val tvPrice: TextView = itemView.findViewById(R.id.tvEstimatedPrice)
+        val tvCategory: TextView = itemView.findViewById(R.id.tvCategory)
         val cbBought: CheckBox = itemView.findViewById(R.id.cbBoughtStatus)
         val ivItemLogo: ImageView = itemView.findViewById(R.id.ivItemLogo)
         val btnDelete: Button = itemView.findViewById(R.id.btnDelete)
@@ -36,6 +39,10 @@ class ShoppingAdapter(private val shoppingItemList : ArrayList<ShoppingItem>):
         val currentItem = shoppingItemList[position]
         holder.tvName.text = currentItem.name
         holder.tvPrice.text = currentItem.estimatedPrice.toString()
+
+        val myItem = holder.itemView.resources.getStringArray(R.array.types_array)
+        holder.tvCategory.text = myItem[currentItem.category]
+
         holder.cbBought.isChecked = currentItem.boughtStatus
 
         holder.btnDelete.setOnClickListener {

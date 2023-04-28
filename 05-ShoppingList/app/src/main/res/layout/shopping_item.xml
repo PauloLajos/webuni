@@ -41,13 +41,21 @@
             app:layout_constraintTop_toBottomOf="@+id/tvName"
             tools:text="89.99" />
 
+        <TextView
+            android:id="@+id/tvCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/cbBoughtStatus"
+            app:layout_constraintTop_toBottomOf="@+id/tvEstimatedPrice"
+            tools:text="Food" />
+
         <CheckBox
             android:id="@+id/cbBoughtStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/estimated_bought"
             app:layout_constraintStart_toEndOf="@+id/ivItemLogo"
-            app:layout_constraintTop_toBottomOf="@+id/tvEstimatedPrice" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
 
         <Button
             android:id="@+id/btnEdit"
