@@ -8,7 +8,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import practice.registerforactivityresult.databinding.ActivityMainBinding
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
@@ -27,13 +26,13 @@ class MainActivity : AppCompatActivity() {
             mBinding.textViewResultData.text = "Activity hasn't returned an intent."
             return@registerForActivityResult
         }
-        if (!intent.hasExtra("nameData")) {
+        else if (!intent.hasExtra("nameData")) {
             mBinding.textViewResultData.text = "Activity hasn't returned extra data."
             return@registerForActivityResult
         }
         // Valid result returned
         mBinding.textViewResultData.text = (
-                "Activity has returned " + intent.getStringExtra("nameData"))
+            "Activity has returned " + intent.getStringExtra("nameData"))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +57,5 @@ class MainActivity : AppCompatActivity() {
         // Use the Kotlin extension in activity-ktx
         // passing it the Intent you want to start
         mGetNameActivity.launch(Intent(this, NameActivity::class.java))
-
     }
 }
