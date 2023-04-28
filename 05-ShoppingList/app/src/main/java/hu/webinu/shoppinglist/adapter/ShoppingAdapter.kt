@@ -1,13 +1,12 @@
 package hu.webinu.shoppinglist.adapter
 
-import android.content.res.Resources
+import android.app.Activity
+import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.Window
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import hu.webinu.shoppinglist.R
 import hu.webinu.shoppinglist.data.ShoppingItem
@@ -48,7 +47,13 @@ class ShoppingAdapter(private val shoppingItemList : ArrayList<ShoppingItem>):
         holder.btnDelete.setOnClickListener {
             deleteShoppingItem(holder.adapterPosition)
         }
+        holder.btnEdit.setOnClickListener {
+            Toast.makeText(this@ShoppingAdapter, "Edit", Toast.LENGTH_SHORT).show()
+        }
 
+    }
+
+    private fun showDialog() {
     }
 
     fun addShoppingItem(shoppingItem: ShoppingItem){

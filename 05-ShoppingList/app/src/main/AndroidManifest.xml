@@ -12,6 +12,10 @@
         android:theme="@style/Theme.ShoppingList"
         tools:targetApi="31">
         <activity
+            android:name=".moditem.ModItemActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".additem.AddItemActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
