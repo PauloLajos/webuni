@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">RegisterForActivityResult</string>
+    <string name="action_settings">Settings</string>
+    <string name="returned_result">Returned Result</string>
+    <string name="result_will_appear_here">Result Will Appear Here</string>
+    <string name="open_name_activity">Open Name Activity</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="default_text">Default Text</string>
+    <string name="return_text_hint">Text to be returned</string>
+</resources>
