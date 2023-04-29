@@ -11,9 +11,11 @@ import hu.webinu.todorecyclerviewdemo.R
 import hu.webinu.todorecyclerviewdemo.data.Todo
 import hu.webinu.todorecyclerviewdemo.databinding.ActivityMainBinding
 import hu.webinu.todorecyclerviewdemo.databinding.TodoRowBinding
+import hu.webinu.todorecyclerviewdemo.touch.TodoTouchHelperCallback
+import java.util.Collections
 
 
-class TodoAdapter: RecyclerView.Adapter<TodoAdapter.ViewHolder> {
+class TodoAdapter: RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelperCallback {
 
     //private lateinit var binding: TodoRowBinding
 
@@ -59,8 +61,22 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         notifyItemInserted(todoItems.lastIndex)
     }
 
+    fun deleteTodo(position: Int) {
+        todoItems.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var tvDate: TextView = itemView.findViewById(R.id.tvDate)
         var cbDone: CheckBox = itemView.findViewById(R.id.cbDone)
+    }
+
+    override fun onDismissed(position: Int) {
+        deleteTodo(position)
+    }
+
+    override fun onItemMoved(fromPosition: Int, toPosition: Int) {
+        Collections.swap(todoItems, fromPosition, toPosition)
+        notifyItemMoved(fromPosition, toPosition)
     }
 }
