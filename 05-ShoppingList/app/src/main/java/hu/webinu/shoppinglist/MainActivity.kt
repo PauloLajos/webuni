@@ -1,9 +1,9 @@
 package hu.webinu.shoppinglist
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.webinu.shoppinglist.adapter.ShoppingAdapter
@@ -13,17 +13,47 @@ import hu.webinu.shoppinglist.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var mainBinding: ActivityMainBinding
 
-     lateinit var itemList: ArrayList<ShoppingItem>
-     lateinit var shoppingAdapter: ShoppingAdapter
+    private lateinit var itemList: ArrayList<ShoppingItem>
+    private lateinit var shoppingAdapter: ShoppingAdapter
+
+    private var mGetNameActivity = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult ->
+        // Validity checks
+        if (RESULT_OK != result.resultCode) {
+            //Activity has returned cancelled
+            return@registerForActivityResult
+        }
+
+        val intent = result.data
+        if (intent == null) {
+            //Activity hasn't returned an intent
+            return@registerForActivityResult
+        }
+        else if (!intent.hasExtra("name")) {
+            //Activity hasn't returned extra data
+            return@registerForActivityResult
+        }
+        // Valid result returned
+        // Add shopping item
+        itemList.add(ShoppingItem(
+            intent.getStringExtra("category").toString().toInt(),
+            intent.getStringExtra("name").toString(),
+            intent.getStringExtra("description").toString(),
+            intent.getStringExtra("estimatedPrice").toString().toFloat(),
+            intent.getStringExtra("boughtStatus").toString().toBoolean()
+        ))
+        // Update list
+        shoppingAdapter.notifyItemInserted(itemList.lastIndex)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
+        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+        val view = mainBinding.root
         setContentView(view)
 
         itemList = ArrayList()
@@ -31,32 +61,28 @@ class MainActivity : AppCompatActivity() {
         // sample data load
         shoppingListItems()
 
-        binding.recyclerShoppingView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerShoppingView.setHasFixedSize(true)
-        binding.recyclerShoppingView.adapter = shoppingAdapter
+        //
+        mainBinding.recyclerShoppingView.layoutManager = LinearLayoutManager(this)
+        mainBinding.recyclerShoppingView.setHasFixedSize(true)
+        mainBinding.recyclerShoppingView.adapter = shoppingAdapter
 
-        binding.fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, AddItemActivity::class.java)
-            startActivity(intent)
+        mainBinding.fab.setOnClickListener {
+            launchAddItemActivity()
         }
-
-        val bundle: Bundle? = intent.extras
-        //Parcelable Data
-        val sitem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("shoppingItem", ShoppingItem::class.java)
-        } else {
-            intent.getParcelableExtra<ShoppingItem>("shoppingItem")
-        }
-        //val sitem: ShoppingItem? = getParcelable("shoppingItem")
-        Toast.makeText((this@MainActivity), sitem!!.name.toString(), Toast.LENGTH_SHORT).show()
-        itemList.add(sitem)
     }
 
+    // Launch AddItemActivity with intent
+    private fun launchAddItemActivity() {
+        // passing it the Intent you want to start
+        mGetNameActivity.launch(Intent(this, AddItemActivity::class.java))
+    }
+
+    // Sample data
     private fun shoppingListItems(){
-        itemList.add(ShoppingItem("Food", "Bred", "White", 80.0F, false))
-        itemList.add(ShoppingItem("Fruit", "Citron", "Lime", 60.0F, true))
-        itemList.add(ShoppingItem("Fruit", "Banana", "Yellow", 30.0F, false))
-        itemList.add(ShoppingItem("Food", "Milk", "1.5 %", 15.0F, true))
-        itemList.add(ShoppingItem("Electric", "Bulb", "25 watts", 40.0F, false))
+        itemList.add(ShoppingItem(0,"Bred","White",80.0F,false))
+        itemList.add(ShoppingItem(1,"Citron","Lime",60.0F,true))
+        itemList.add(ShoppingItem(1,"Banana","Yellow",30.0F,false))
+        itemList.add(ShoppingItem(0,"Milk","1.5 %",15.0F,true))
+        itemList.add(ShoppingItem(2,"Bulb","25 watts",40.0F,false))
     }
 }
