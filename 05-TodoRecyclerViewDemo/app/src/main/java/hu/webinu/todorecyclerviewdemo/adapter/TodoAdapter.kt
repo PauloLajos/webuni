@@ -4,22 +4,21 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hu.webinu.todorecyclerviewdemo.R
 import hu.webinu.todorecyclerviewdemo.data.Todo
-import hu.webinu.todorecyclerviewdemo.databinding.ActivityMainBinding
-import hu.webinu.todorecyclerviewdemo.databinding.TodoRowBinding
 import hu.webinu.todorecyclerviewdemo.touch.TodoTouchHelperCallback
-import java.util.Collections
+import java.util.*
 
 
-class TodoAdapter: RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelperCallback {
+class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelperCallback {
 
     //private lateinit var binding: TodoRowBinding
 
-    var todoItems = mutableListOf<Todo>(
+    var todoItems = mutableListOf(
         Todo("2023.04.24.", false, "Go to cinema"),
         Todo("2023.04.22.", true, "Go to laundry"),
         Todo("2023.04.24.", false, "Go to cinema"),
@@ -36,7 +35,8 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelper
     )
 
     val context: Context
-    constructor(context: Context): super() {
+
+    constructor(context: Context) : super() {
         this.context = context
     }
 
@@ -54,6 +54,7 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelper
         holder.tvDate.text = todoItem.createDate
         holder.cbDone.isChecked = todoItem.done
         holder.cbDone.text = todoItem.todoText
+        holder.btnDel.setOnClickListener { deleteTodo(holder.adapterPosition) }
     }
 
     fun addTodo(todo: Todo) {
@@ -66,9 +67,10 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelper
         notifyItemRemoved(position)
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvDate: TextView = itemView.findViewById(R.id.tvDate)
         var cbDone: CheckBox = itemView.findViewById(R.id.cbDone)
+        var btnDel: Button = itemView.findViewById(R.id.btnDelete)
     }
 
     override fun onDismissed(position: Int) {
