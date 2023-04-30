@@ -2,6 +2,8 @@ package hu.webuni.roomgradedemo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import hu.webuni.roomgradedemo.data.AppDatabase
+import hu.webuni.roomgradedemo.data.Grade
 import hu.webuni.roomgradedemo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +39,36 @@ class MainActivity : AppCompatActivity() {
                 threadEnable = false
             }
         }
+
+        mainBinding.btnSave.setOnClickListener {
+            saveGrade()
+        }
+
+        mainBinding.btnQuery.setOnClickListener {
+            queryGrade()
+        }
+    }
+
+    fun saveGrade() {
+        Thread {
+            AppDatabase.getInstance(this@MainActivity).gradeDao().insertGrades(
+                Grade(null,
+                    mainBinding.etStudentName.text.toString(),
+                    mainBinding.etGrade.text.toString())
+            )
+        }.start()
+    }
+
+    fun queryGrade(){
+        Thread{
+            var grades = AppDatabase.getInstance(this@MainActivity).gradeDao().getSomeGrades("2")
+            runOnUiThread {
+                mainBinding.tvResult.text = ""
+                grades.forEach {
+                    mainBinding.tvResult.append("${it.studentName} - ${it.grade}\n")
+                }
+            }
+        }.start()
     }
 
     override fun onStop() {
