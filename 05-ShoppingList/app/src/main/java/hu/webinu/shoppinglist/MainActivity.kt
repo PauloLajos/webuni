@@ -13,9 +13,6 @@ import hu.webinu.shoppinglist.data.ShoppingDao
 import hu.webinu.shoppinglist.data.ShoppingDatabase
 import hu.webinu.shoppinglist.data.ShoppingItem
 import hu.webinu.shoppinglist.databinding.ActivityMainBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         }
         // Valid result returned
         // Add shopping item
-        //itemList.add(ShoppingItem(
         Thread {
             val shoppingItem = ShoppingItem(
                     null,
@@ -56,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                     intent.getStringExtra("boughtStatus").toString().toBoolean()
                 )
             // Update list
-            data.insertItems(shoppingItem)
+            data.insertItem(shoppingItem)
             itemList.add(shoppingItem)
             shoppingAdapter.notifyItemInserted(itemList.lastIndex)
         }.start()
@@ -72,24 +68,21 @@ class MainActivity : AppCompatActivity() {
 
         itemList = ArrayList()
         shoppingAdapter = ShoppingAdapter(itemList, this@MainActivity)
-        // sample data load
-        //shoppingListItems()
 
-        //
         mainBinding.recyclerShoppingView.layoutManager = LinearLayoutManager(this)
         mainBinding.recyclerShoppingView.setHasFixedSize(true)
         mainBinding.recyclerShoppingView.adapter = shoppingAdapter
 
         data = ShoppingDatabase.getInstance(this).shoppingDao()
         Thread {
-            if (data.getAllExamples().isEmpty()) {
-                data.insertItems(ShoppingItem(null, 0, "Bred", "White", 80.0F, false))
-                data.insertItems(ShoppingItem(null, 1, "Citron", "Lime", 60.0F, true))
-                data.insertItems(ShoppingItem(null, 1, "Banana", "Yellow", 30.0F, false))
-                data.insertItems(ShoppingItem(null, 0, "Milk", "1.5 %", 15.0F, true))
-                data.insertItems(ShoppingItem(null, 2, "Bulb", "25 watts", 40.0F, false))
+            if (data.getAllItems().isEmpty()) {
+                data.insertItem(ShoppingItem(null, 0, "Bred", "White", 80.0F, false))
+                data.insertItem(ShoppingItem(null, 1, "Citron", "Lime", 60.0F, true))
+                data.insertItem(ShoppingItem(null, 1, "Banana", "Yellow", 30.0F, false))
+                data.insertItem(ShoppingItem(null, 0, "Milk", "1.5 %", 15.0F, true))
+                data.insertItem(ShoppingItem(null, 2, "Bulb", "25 watts", 40.0F, false))
             }
-            itemList.addAll(data.getAllExamples())
+            itemList.addAll(data.getAllItems())
             shoppingAdapter.notifyDataSetChanged()
         }.start()
 
@@ -104,27 +97,6 @@ class MainActivity : AppCompatActivity() {
         mGetNameActivity.launch(Intent(this, AddItemActivity::class.java))
     }
 
-    // Sample data
-/*
-    private fun shoppingListItems(){
-        itemList.add(ShoppingItem(0,"Bred","White",80.0F,false))
-        itemList.add(ShoppingItem(1,"Citron","Lime",60.0F,true))
-        itemList.add(ShoppingItem(1,"Banana","Yellow",30.0F,false))
-        itemList.add(ShoppingItem(0,"Milk","1.5 %",15.0F,true))
-        itemList.add(ShoppingItem(2,"Bulb","25 watts",40.0F,false))
-    }
-*/
-/*
-        fun showEditDialog(shoppingItem: ShoppingItem, adapterPosition: Int) {
-            // show edit dialog
-            val editDialog = ShoppingItemDialog()
-            val bundle = Bundle()
-            bundle.putSerializable(KEY_EDIT, shoppingItem)
-            editDialog.arguments = bundle
-
-            editDialog.show(supportFragmentManager, "EDITDIALOG")
-        }
-*/
     companion object {
         const val KEY_EDIT = "KEY_EDIT"
     }

@@ -1,21 +1,21 @@
 package hu.webinu.shoppinglist.data
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface ShoppingDao {
     @Query("SELECT * FROM ShoppingItem")
-    fun getAllExamples(): List<ShoppingItem>
+    fun getAllItems(): List<ShoppingItem>
 
     @Query("SELECT * FROM ShoppingItem WHERE category = :category")
-    fun getSomeExamples(category: String): List<ShoppingItem>
+    fun getSomeItems(category: String): List<ShoppingItem>
 
     @Insert
-    fun insertItems(vararg examples: ShoppingItem)
+    fun insertItem(vararg shoppingItem: ShoppingItem)
+
+    @Update
+    fun updateItem(shoppingItem: ShoppingItem)
 
     @Delete
-    fun deleteItem(example: ShoppingItem)
+    fun deleteItem(shoppingItem: ShoppingItem)
 }
