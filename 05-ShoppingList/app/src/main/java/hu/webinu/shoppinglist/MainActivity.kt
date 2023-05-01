@@ -44,17 +44,20 @@ class MainActivity : AppCompatActivity() {
         // Add shopping item
         Thread {
             val shoppingItem = ShoppingItem(
-                    null,
-                    intent.getStringExtra("category").toString().toInt(),
-                    intent.getStringExtra("name").toString(),
-                    intent.getStringExtra("description").toString(),
-                    intent.getStringExtra("estimatedPrice").toString().toFloat(),
-                    intent.getStringExtra("boughtStatus").toString().toBoolean()
-                )
-            // Update list
-            data.insertItem(shoppingItem)
-            itemList.add(shoppingItem)
-            shoppingAdapter.notifyItemInserted(itemList.lastIndex)
+                null,
+                intent.getStringExtra("category").toString().toInt(),
+                intent.getStringExtra("name").toString(),
+                intent.getStringExtra("description").toString(),
+                intent.getStringExtra("estimatedPrice").toString().toFloat(),
+                intent.getStringExtra("boughtStatus").toString().toBoolean()
+            )
+            runOnUiThread {
+                // Update list
+                data.insertItem(shoppingItem)
+                itemList.add(shoppingItem)
+                shoppingAdapter.notifyItemInserted(itemList.lastIndex)
+
+            }
         }.start()
     }
 
@@ -82,9 +85,12 @@ class MainActivity : AppCompatActivity() {
                 data.insertItem(ShoppingItem(null, 0, "Milk", "1.5 %", 15.0F, true))
                 data.insertItem(ShoppingItem(null, 2, "Bulb", "25 watts", 40.0F, false))
             }
-            itemList.addAll(data.getAllItems())
-            shoppingAdapter.notifyDataSetChanged()
+            runOnUiThread {
+                itemList.addAll(data.getAllItems())
+                shoppingAdapter.notifyDataSetChanged()
+            }
         }.start()
+
 
         mainBinding.fab.setOnClickListener {
             launchAddItemActivity()

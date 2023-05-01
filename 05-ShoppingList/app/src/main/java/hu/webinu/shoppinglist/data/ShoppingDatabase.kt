@@ -16,7 +16,7 @@ abstract class ShoppingDatabase : RoomDatabase() {
         fun getInstance(context: Context): ShoppingDatabase {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(context.applicationContext,
-                    ShoppingDatabase::class.java, "shopping-database.db")
+                    ShoppingDatabase::class.java, "shoppingdatabase.db")
                     .build()
             }
             return INSTANCE!!

@@ -1,11 +1,13 @@
 package hu.webinu.shoppinglist.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import hu.webinu.shoppinglist.MainActivity
 import hu.webinu.shoppinglist.R
 import hu.webinu.shoppinglist.data.ShoppingDatabase
 import hu.webinu.shoppinglist.data.ShoppingItem
@@ -30,20 +32,25 @@ class ShoppingAdapter(private var shoppingItemList: ArrayList<ShoppingItem>, pri
         holder.bind(shoppingItemList[holder.adapterPosition])
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateShoppingItem(shoppingItem: ShoppingItem, position: Int) {
         Thread {
             data.updateItem(shoppingItem)
+            (context as MainActivity).runOnUiThread {
+                shoppingItemList[position] = shoppingItem
+                notifyDataSetChanged()
+            }
         }.start()
-        shoppingItemList[position] = shoppingItem
-        notifyItemChanged(position)
     }
 
     private fun deleteShoppingItem(position: Int) {
         Thread {
             data.deleteItem(shoppingItemList[position])
+            (context as MainActivity).runOnUiThread {
+                shoppingItemList.removeAt(position)
+                notifyItemRemoved(position)
+            }
         }.start()
-        shoppingItemList.removeAt(position)
-        notifyItemRemoved(position)
     }
 
     inner class ItemViewHolder(private val itemBinding: ShoppingItemBinding): RecyclerView.ViewHolder(itemBinding.root) {
@@ -66,7 +73,7 @@ class ShoppingAdapter(private var shoppingItemList: ArrayList<ShoppingItem>, pri
             itemBinding.cbBoughtStatus.isChecked = shoppingItem.boughtStatus
             itemBinding.cbBoughtStatus.setOnCheckedChangeListener { _: CompoundButton, checked: Boolean ->
                 shoppingItem.boughtStatus = checked
-                //updateShoppingItem(shoppingItem, adapterPosition)
+                updateShoppingItem(shoppingItem, adapterPosition)
             }
         }
     }
