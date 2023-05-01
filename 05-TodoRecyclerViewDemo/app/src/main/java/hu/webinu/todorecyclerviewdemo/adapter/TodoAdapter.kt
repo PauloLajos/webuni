@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hu.webinu.todorecyclerviewdemo.R
 import hu.webinu.todorecyclerviewdemo.data.Todo
+import hu.webinu.todorecyclerviewdemo.databinding.TodoRowBinding
 import hu.webinu.todorecyclerviewdemo.touch.TodoTouchHelperCallback
 import java.util.*
 
@@ -41,8 +42,11 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelpe
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val todoView = LayoutInflater.from(context).inflate(R.layout.todo_row, parent, false)
-        return ViewHolder(todoView)
+        val todoRowBinding = TodoRowBinding.inflate(
+            LayoutInflater.from(context), parent, false)
+
+        //val todoView = LayoutInflater.from(context).inflate(R.layout.todo_row, parent, false)
+        return ViewHolder(todoRowBinding)
     }
 
     override fun getItemCount(): Int {
@@ -50,11 +54,8 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelpe
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val todoItem = todoItems[position]
-        holder.tvDate.text = todoItem.createDate
-        holder.cbDone.isChecked = todoItem.done
-        holder.cbDone.text = todoItem.todoText
-        holder.btnDel.setOnClickListener { deleteTodo(holder.adapterPosition) }
+        //val todoItem = todoItems[position]
+        holder.bind(todoItems[holder.adapterPosition])
     }
 
     fun addTodo(todo: Todo) {
@@ -67,10 +68,19 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.ViewHolder>, TodoTouchHelpe
         notifyItemRemoved(position)
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvDate: TextView = itemView.findViewById(R.id.tvDate)
-        var cbDone: CheckBox = itemView.findViewById(R.id.cbDone)
-        var btnDel: Button = itemView.findViewById(R.id.btnDelete)
+    inner class ViewHolder(private val todoRowBinding: TodoRowBinding) : RecyclerView.ViewHolder(todoRowBinding.root) {
+
+        fun bind(todoItem: Todo) {
+            todoRowBinding.tvDate.text = todoItem.createDate
+            todoRowBinding.cbDone.isChecked = todoItem.done
+            todoRowBinding.cbDone.text = todoItem.todoText
+            todoRowBinding.btnDelete.setOnClickListener { deleteTodo(adapterPosition) }
+        }
+        /*
+        var tvDate: TextView = todoRowBinding.tvDate
+        var cbDone: CheckBox = todoRowBinding.cbDone
+        var btnDel: Button = todoRowBinding.btnDelete
+         */
     }
 
     override fun onDismissed(position: Int) {

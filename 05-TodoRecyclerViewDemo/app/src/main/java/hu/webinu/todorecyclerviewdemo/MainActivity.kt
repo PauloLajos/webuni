@@ -23,6 +23,9 @@ class MainActivity : AppCompatActivity(), TodoDialog.TodoHandler {
         val view = binding.root
         setContentView(view)
 
+        setSupportActionBar(binding.toolbar)
+        binding.toolbar.title = title
+
         todoAdapter = TodoAdapter(this@MainActivity)
         binding.recyclerTodo.adapter = todoAdapter
         //binding.recyclerTodo.layoutManager = GridLayoutManager(this, 2)
