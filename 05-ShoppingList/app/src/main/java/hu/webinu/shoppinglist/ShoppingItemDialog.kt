@@ -72,7 +72,7 @@ class ShoppingItemDialog: DialogFragment() {
 
             etName.setText(shopItem.name)
             etPrice.setText(shopItem.estimatedPrice.toString())
-            spinnerCategory.setSelection(shopItem.category)
+            spinnerCategory.setSelection(shopItem.category!!)
         }
 
         builder.setPositiveButton("OK") { dialog, which ->
@@ -109,6 +109,7 @@ class ShoppingItemDialog: DialogFragment() {
     fun handleItemCreate() {
         shoppingItemHandler.shoppingItemCreated(
             ShoppingItem(
+                null,
                 0,
                 etName.text.toString(),
                 etPrice.text.toString(),

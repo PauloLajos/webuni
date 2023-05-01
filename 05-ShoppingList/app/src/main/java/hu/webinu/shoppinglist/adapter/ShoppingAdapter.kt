@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import hu.webinu.shoppinglist.MainActivity
 import hu.webinu.shoppinglist.R
+import hu.webinu.shoppinglist.data.ShoppingDatabase
 import hu.webinu.shoppinglist.data.ShoppingItem
 import hu.webinu.shoppinglist.databinding.ShoppingItemBinding
 
@@ -45,6 +46,10 @@ class ShoppingAdapter(var shoppingItemList: ArrayList<ShoppingItem>, private val
     }
 
     private fun deleteShoppingItem(position: Int) {
+        var data = ShoppingDatabase.getInstance(context).shoppingDao()
+        Thread {
+            data.deleteItem(shoppingItemList[position])
+        }.start()
         shoppingItemList.removeAt(position)
         notifyItemRemoved(position)
     }
@@ -56,7 +61,7 @@ class ShoppingAdapter(var shoppingItemList: ArrayList<ShoppingItem>, private val
 
 
             val myItem: Array<String> =  context.resources.getStringArray(R.array.types_array)
-            itemBinding.tvCategory.text = myItem[shoppingItem.category]
+            itemBinding.tvCategory.text = myItem[shoppingItem.category!!]
 
             itemBinding.cbBoughtStatus.isChecked = shoppingItem.boughtStatus
 

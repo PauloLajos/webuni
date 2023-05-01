@@ -1,13 +1,15 @@
 package hu.webinu.shoppinglist.data
 
-import android.os.Parcel
-import android.os.Parcelable
-import java.io.Serializable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity
 data class ShoppingItem(
-    var category: Int,
-    var name: String,
-    var description: String,
-    var estimatedPrice: Float,
-    var boughtStatus: Boolean
-) : Serializable
+    @PrimaryKey(autoGenerate = true) var Id: Long?,
+    @ColumnInfo(name = "category") var category: Int,
+    @ColumnInfo(name = "name") var name: String,
+    @ColumnInfo(name = "description") var description: String,
+    @ColumnInfo(name = "estimatedPrice") var estimatedPrice: Float = 0f,
+    @ColumnInfo(name = "boughtStatus") var boughtStatus: Boolean = false
+)
