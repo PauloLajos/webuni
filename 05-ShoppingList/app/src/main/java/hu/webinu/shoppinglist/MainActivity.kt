@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         itemList = ArrayList()
-        shoppingAdapter = ShoppingAdapter(itemList)
+        shoppingAdapter = ShoppingAdapter(itemList,this@MainActivity)
         // sample data load
         shoppingListItems()
 
@@ -84,5 +84,19 @@ class MainActivity : AppCompatActivity() {
         itemList.add(ShoppingItem(1,"Banana","Yellow",30.0F,false))
         itemList.add(ShoppingItem(0,"Milk","1.5 %",15.0F,true))
         itemList.add(ShoppingItem(2,"Bulb","25 watts",40.0F,false))
+    }
+
+        fun showEditDialog(shoppingItem: ShoppingItem, adapterPosition: Int) {
+            // show edit dialog
+            val editDialog = ShoppingItemDialog()
+            val bundle = Bundle()
+            bundle.putSerializable(KEY_EDIT, shoppingItem)
+            editDialog.arguments = bundle
+
+            editDialog.show(supportFragmentManager, "EDITDIALOG")
+        }
+
+    companion object {
+        const val KEY_EDIT = "KEY_EDIT"
     }
 }

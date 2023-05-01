@@ -1,56 +1,34 @@
 package hu.webinu.shoppinglist.adapter
 
-import android.app.Activity
-import android.app.Dialog
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.*
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import hu.webinu.shoppinglist.MainActivity
 import hu.webinu.shoppinglist.R
 import hu.webinu.shoppinglist.data.ShoppingItem
+import hu.webinu.shoppinglist.databinding.ShoppingItemBinding
 
 
-class ShoppingAdapter(private val shoppingItemList : ArrayList<ShoppingItem>):
+class ShoppingAdapter(var shoppingItemList: ArrayList<ShoppingItem>, private val context: Context) :
     RecyclerView.Adapter<ShoppingAdapter.ItemViewHolder>() {
 
-    inner class ItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        // This is where we now collect our values from XML
-        val tvName: TextView = itemView.findViewById(R.id.tvName)
-        val tvPrice: TextView = itemView.findViewById(R.id.tvEstimatedPrice)
-        val tvCategory: TextView = itemView.findViewById(R.id.tvCategory)
-        val cbBought: CheckBox = itemView.findViewById(R.id.cbBoughtStatus)
-        val ivItemLogo: ImageView = itemView.findViewById(R.id.ivItemLogo)
-        val btnDelete: Button = itemView.findViewById(R.id.btnDelete)
-        val btnEdit: Button = itemView.findViewById(R.id.btnEdit)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val viewLayout = LayoutInflater.from(parent.context).inflate(
-            R.layout.shopping_item, parent, false)
-        return ItemViewHolder(viewLayout)
+        val shoppingItemBinding = ShoppingItemBinding.inflate(
+            LayoutInflater.from(context),parent,false
+        )
+
+        //val viewLayout = LayoutInflater.from(parent.context).inflate(
+        //    R.layout.shopping_item, parent, false)
+        return ItemViewHolder(shoppingItemBinding)
     }
 
     override fun getItemCount()= shoppingItemList.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val currentItem = shoppingItemList[position]
-        holder.tvName.text = currentItem.name
-        holder.tvPrice.text = currentItem.estimatedPrice.toString()
-
-        val myItem = holder.itemView.resources.getStringArray(R.array.types_array)
-        holder.tvCategory.text = myItem[currentItem.category]
-
-        holder.cbBought.isChecked = currentItem.boughtStatus
-
-        holder.btnDelete.setOnClickListener {
-            deleteShoppingItem(holder.adapterPosition)
-        }
-        holder.btnEdit.setOnClickListener {
-            Toast.makeText(this@ShoppingAdapter, "Edit", Toast.LENGTH_SHORT).show()
-        }
-
+        //val currentItem = shoppingItemList[position]
+        holder.bind(shoppingItemList[holder.adapterPosition])
     }
 
     private fun showDialog() {
@@ -61,8 +39,36 @@ class ShoppingAdapter(private val shoppingItemList : ArrayList<ShoppingItem>):
         notifyItemInserted(shoppingItemList.lastIndex)
     }
 
+    fun updateItem(item: ShoppingItem, editIndex: Int) {
+        shoppingItemList[editIndex] = item
+        notifyItemChanged(editIndex)
+    }
+
     private fun deleteShoppingItem(position: Int) {
         shoppingItemList.removeAt(position)
         notifyItemRemoved(position)
+    }
+
+    inner class ItemViewHolder(private val itemBinding: ShoppingItemBinding): RecyclerView.ViewHolder(itemBinding.root) {
+        fun bind(shoppingItem: ShoppingItem) {
+            itemBinding.tvName.text = shoppingItem.name
+            itemBinding.tvEstimatedPrice.text = shoppingItem.estimatedPrice.toString()
+
+
+            val myItem: Array<String> =  context.resources.getStringArray(R.array.types_array)
+            itemBinding.tvCategory.text = myItem[shoppingItem.category]
+
+            itemBinding.cbBoughtStatus.isChecked = shoppingItem.boughtStatus
+
+            itemBinding.btnDelete.setOnClickListener {
+                deleteShoppingItem(adapterPosition)
+            }
+            itemBinding.btnEdit.setOnClickListener {
+                Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
+                //(context as MainActivity).showEditDialog(
+                //    shoppingItemList[adapterPosition], adapterPosition
+                //)
+            }
+        }
     }
 }
