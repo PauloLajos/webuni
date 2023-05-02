@@ -3,6 +3,7 @@ package hu.webinu.shoppinglist.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity
 data class ShoppingItem(
@@ -12,4 +13,4 @@ data class ShoppingItem(
     @ColumnInfo(name = "description") var description: String,
     @ColumnInfo(name = "estimatedPrice") var estimatedPrice: Float = 0f,
     @ColumnInfo(name = "boughtStatus") var boughtStatus: Boolean = false
-)
+) : Serializable

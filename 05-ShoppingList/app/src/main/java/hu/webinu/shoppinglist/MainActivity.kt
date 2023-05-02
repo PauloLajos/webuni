@@ -51,12 +51,12 @@ class MainActivity : AppCompatActivity() {
                 intent.getStringExtra("estimatedPrice").toString().toFloat(),
                 intent.getStringExtra("boughtStatus").toString().toBoolean()
             )
+            data.insertItem(shoppingItem)
+
             runOnUiThread {
                 // Update list
-                data.insertItem(shoppingItem)
                 itemList.add(shoppingItem)
                 shoppingAdapter.notifyItemInserted(itemList.lastIndex)
-
             }
         }.start()
     }
@@ -69,14 +69,13 @@ class MainActivity : AppCompatActivity() {
         val view = mainBinding.root
         setContentView(view)
 
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
         itemList = ArrayList()
-        shoppingAdapter = ShoppingAdapter(itemList, this@MainActivity)
-
-        mainBinding.recyclerShoppingView.layoutManager = LinearLayoutManager(this)
-        mainBinding.recyclerShoppingView.setHasFixedSize(true)
-        mainBinding.recyclerShoppingView.adapter = shoppingAdapter
-
         data = ShoppingDatabase.getInstance(this).shoppingDao()
+
         Thread {
             if (data.getAllItems().isEmpty()) {
                 data.insertItem(ShoppingItem(null, 0, "Bred", "White", 80.0F, false))
@@ -85,25 +84,32 @@ class MainActivity : AppCompatActivity() {
                 data.insertItem(ShoppingItem(null, 0, "Milk", "1.5 %", 15.0F, true))
                 data.insertItem(ShoppingItem(null, 2, "Bulb", "25 watts", 40.0F, false))
             }
+            itemList.addAll(data.getAllItems())
+
             runOnUiThread {
-                itemList.addAll(data.getAllItems())
-                shoppingAdapter.notifyDataSetChanged()
+                shoppingAdapter = ShoppingAdapter(itemList, this@MainActivity)
+
+                mainBinding.recyclerShoppingView.layoutManager = LinearLayoutManager(this@MainActivity)
+                mainBinding.recyclerShoppingView.setHasFixedSize(true)
+                mainBinding.recyclerShoppingView.adapter = shoppingAdapter
+
+                mainBinding.fab.setOnClickListener {
+                    launchAddItemActivity()
+                }
             }
         }.start()
-
-
-        mainBinding.fab.setOnClickListener {
-            launchAddItemActivity()
-        }
     }
 
     // Launch AddItemActivity with intent
-    private fun launchAddItemActivity() {
+    fun launchAddItemActivity() {
         // passing it the Intent you want to start
         mGetNameActivity.launch(Intent(this, AddItemActivity::class.java))
     }
 
-    companion object {
-        const val KEY_EDIT = "KEY_EDIT"
+    fun launchModItemActivity(shoppingItem: ShoppingItem) {
+        val bundle = Bundle()
+        bundle.putSerializable("KEY_EDIT", shoppingItem)
+        // passing it the Intent you want to start
+        mGetNameActivity.launch(Intent(this, AddItemActivity::class.java).putExtra("shoppingItem", bundle))
     }
 }

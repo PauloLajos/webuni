@@ -66,6 +66,7 @@ class ShoppingAdapter(private var shoppingItemList: ArrayList<ShoppingItem>, pri
             }
 
             itemBinding.btnEdit.setOnClickListener {
+                (context as MainActivity).launchModItemActivity(shoppingItem)
                 Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show()
             }
 
