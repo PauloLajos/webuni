@@ -25,10 +25,15 @@ class FragmentDemo : Fragment() {
         _binding = FragmentDemoBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
-        _binding!!.btnDemo.setOnClickListener {
+        binding.btnDemo.setOnClickListener {
             Toast.makeText(activity,"Demo",Toast.LENGTH_LONG).show()
         }
 
         return rootView
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
