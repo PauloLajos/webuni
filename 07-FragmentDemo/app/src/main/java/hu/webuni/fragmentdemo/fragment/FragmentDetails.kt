@@ -33,4 +33,9 @@ class FragmentDetails : Fragment() {
 
         return rootView
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

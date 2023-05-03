@@ -7,6 +7,7 @@ import hu.webuni.fragmentdemo.fragment.FragmentDetails
 import hu.webuni.fragmentdemo.fragment.FragmentMain
 
 class MainActivity : AppCompatActivity() {
+
     lateinit var mainBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
