@@ -2,12 +2,14 @@ package hu.webinu.todorecyclerviewdemo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.GridLayoutManager
+import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import hu.webinu.todorecyclerviewdemo.adapter.TodoAdapter
 import hu.webinu.todorecyclerviewdemo.data.Todo
 import hu.webinu.todorecyclerviewdemo.databinding.ActivityMainBinding
 import hu.webinu.todorecyclerviewdemo.touch.TodoRecyclerTouchCallback
+import java.util.Calendar
+import java.util.Date
 
 class MainActivity : AppCompatActivity(), TodoDialog.TodoHandler {
 
@@ -37,8 +39,24 @@ class MainActivity : AppCompatActivity(), TodoDialog.TodoHandler {
         binding.fab.setOnClickListener {
             TodoDialog().show(supportFragmentManager, "Dialog")
         }
+
+        val lastOpened = getDate()
+        Toast.makeText(this,lastOpened?:"",Toast.LENGTH_LONG).show()
+
+        saveData()
     }
 
+    private fun saveData() {
+        val sp = getSharedPreferences("PREF_SETTINGS", MODE_PRIVATE)
+        val editor = sp.edit()
+        editor.putString("KEY_LAST_OPENED", Date(Calendar.getInstance().timeInMillis).toString())
+        editor.apply()
+    }
+
+    private fun getDate(): String? {
+        val sp = getSharedPreferences("PREF_SETTINGS", MODE_PRIVATE)
+        return sp.getString("KEY_LAST_OPENED", "This is the first time")
+    }
     override fun todoCreated(todo: Todo) {
         todoAdapter.addTodo(todo)
     }
