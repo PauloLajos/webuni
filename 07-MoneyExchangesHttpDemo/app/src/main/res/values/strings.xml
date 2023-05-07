@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MoneyExchangesHttpDemo</string>
+    <string name="get_rates">Get rates</string>
+</resources>
