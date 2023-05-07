@@ -8,12 +8,19 @@ import hu.webinu.todorecyclerviewdemo.adapter.TodoAdapter
 import hu.webinu.todorecyclerviewdemo.data.Todo
 import hu.webinu.todorecyclerviewdemo.databinding.ActivityMainBinding
 import hu.webinu.todorecyclerviewdemo.touch.TodoRecyclerTouchCallback
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import java.util.Calendar
 import java.util.Date
 
 class MainActivity : AppCompatActivity(), TodoDialog.TodoHandler {
 
     private lateinit var binding: ActivityMainBinding
+
+    companion object {
+        const val PREF_SETTINGS = "PREF_SETTINGS"
+        const val KEY_LAST_OPENED = "KEY_LAST_OPENED"
+        const val KEY_FIRST_START = "KEY_FIRST_START"
+    }
 
     lateinit var todoAdapter: TodoAdapter
 
@@ -40,23 +47,31 @@ class MainActivity : AppCompatActivity(), TodoDialog.TodoHandler {
             TodoDialog().show(supportFragmentManager, "Dialog")
         }
 
-        val lastOpened = getDate()
-        Toast.makeText(this,lastOpened?:"",Toast.LENGTH_LONG).show()
+        if (isFirstStart()) {
+            MaterialTapTargetPrompt.Builder(this)
+                .setTarget(R.id.fab)
+                .setPrimaryText("Create todo")
+                .setSecondaryText("Tap here to create new todo")
+                .show()
+        }
 
         saveData()
     }
 
     private fun saveData() {
-        val sp = getSharedPreferences("PREF_SETTINGS", MODE_PRIVATE)
+        val sp = getSharedPreferences(PREF_SETTINGS, MODE_PRIVATE)
         val editor = sp.edit()
-        editor.putString("KEY_LAST_OPENED", Date(Calendar.getInstance().timeInMillis).toString())
+        editor.putString(KEY_LAST_OPENED, Date(Calendar.getInstance().timeInMillis).toString())
+        editor.putBoolean(KEY_FIRST_START,false)
         editor.apply()
     }
 
-    private fun getDate(): String? {
-        val sp = getSharedPreferences("PREF_SETTINGS", MODE_PRIVATE)
-        return sp.getString("KEY_LAST_OPENED", "This is the first time")
+    private fun isFirstStart(): Boolean {
+        val sp = getSharedPreferences(PREF_SETTINGS, MODE_PRIVATE)
+        Toast.makeText(this,sp.getString(KEY_LAST_OPENED, "This is the first time"),Toast.LENGTH_LONG).show()
+        return sp.getBoolean(KEY_FIRST_START, true)
     }
+
     override fun todoCreated(todo: Todo) {
         todoAdapter.addTodo(todo)
     }
