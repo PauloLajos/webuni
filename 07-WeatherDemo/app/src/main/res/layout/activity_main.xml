@@ -14,10 +14,28 @@
         android:text="@string/getWeather" />
 
     <TextView
-        android:id="@+id/tvData"
+        android:id="@+id/tvWeatherMain"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:textSize="24sp"
-        android:text="Hello World!" />
+        android:text="@string/get_weather_tap_on_the_button" />
+    <TextView
+        android:id="@+id/tvWeatherTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:textSize="24sp"
+        android:text="- C°" />
+    <TextView
+        android:id="@+id/tvWeatherPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:textSize="24sp"
+        android:text="- hPa" />
+    <TextView
+        android:id="@+id/tvWeatherHumidity"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:textSize="24sp"
+        android:text="-%" />
 
 </LinearLayout>
