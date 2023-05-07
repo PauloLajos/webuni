@@ -11,7 +11,7 @@ import retrofit2.http.Query
  */
 interface WeatherAPI {
     @GET(
-        "weather"
+        "data/2.5/weather"
     )
 
     fun getWeather(

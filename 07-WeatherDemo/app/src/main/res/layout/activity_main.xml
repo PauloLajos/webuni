@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal|center_vertical"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        tools:srcCompat="@android:drawable/stat_notify_sync" />
 
     <Button
         android:id="@+id/btnGetRates"
@@ -17,25 +23,28 @@
         android:id="@+id/tvWeatherMain"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:textSize="24sp"
-        android:text="@string/get_weather_tap_on_the_button" />
+        android:text="@string/get_weather_tap_on_the_button"
+        android:textSize="24sp" />
+
     <TextView
         android:id="@+id/tvWeatherTemp"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:textSize="24sp"
-        android:text="- C°" />
+        android:text="- C°"
+        android:textSize="24sp" />
+
     <TextView
         android:id="@+id/tvWeatherPressure"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:textSize="24sp"
-        android:text="- hPa" />
+        android:text="- hPa"
+        android:textSize="24sp" />
+
     <TextView
         android:id="@+id/tvWeatherHumidity"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:textSize="24sp"
-        android:text="-%" />
+        android:text="-%"
+        android:textSize="24sp" />
 
 </LinearLayout>
