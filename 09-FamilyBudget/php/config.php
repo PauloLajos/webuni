@@ -13,7 +13,7 @@
     
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
     } else {  //echo "Connect"; 
-        echo "Sucess to connect to MySQL: " . mysqli_connect_error();
+        echo "Success to connect to MySQL: " . mysqli_connect_error();
 
     }
 ?>

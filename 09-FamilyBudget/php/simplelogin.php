@@ -43,6 +43,6 @@
         }
     }
     else {
-        echo json_encode(array( "status" => "false","message" => "Error occured, please try again! (1)") );
+        echo json_encode(array( "status" => "false","message" => "Error occurred, please try again! (1)") );
     }
 ?>

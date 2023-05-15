@@ -46,7 +46,7 @@
                     echo json_encode(array( "status" => "true", "message" => "Successfully registered!" , "data" => $emparray) );
                 }
                 else {
-                    echo json_encode(array( "status" => "false", "message" => "Error occured, please try again! (1)") );
+                    echo json_encode(array( "status" => "false", "message" => "Error occurred, please try again! (1)") );
                 }
             }
             
@@ -54,6 +54,6 @@
         }
     }
     else {
-        echo json_encode(array( "status" => "false", "message" => "Error occured, please try again! (2)") );
+        echo json_encode(array( "status" => "false", "message" => "Error occurred, please try again! (2)") );
     }
 ?>
