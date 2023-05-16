@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Family Budget</string>
+    <string name="enter_name">Enter name</string>
+    <string name="enter_hobby">Enter hobby</string>
+    <string name="enter_username">Enter username</string>
+    <string name="enter_password">Enter password</string>
+    <string name="register">Register</string>
+    <string name="already_registered_login_here">Already Registered? Login here</string>
+    <string name="login">Login</string>
+    <string name="guest_register_here">Guest? Register here</string>
+    <string name="welcome">Welcome</string>
+    <string name="hobby">Hobby</string>
+    <string name="logout">Logout</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

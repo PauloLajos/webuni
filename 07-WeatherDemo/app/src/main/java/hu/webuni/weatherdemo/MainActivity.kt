@@ -1,9 +1,8 @@
 package hu.webuni.weatherdemo
 
 import android.annotation.SuppressLint
-import android.graphics.BitmapFactory
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import hu.webuni.weatherdemo.data.WeatherResult
 import hu.webuni.weatherdemo.databinding.ActivityMainBinding
@@ -22,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         const val BASE_URL = "https://api.openweathermap.org/"
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

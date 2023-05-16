@@ -10,6 +10,8 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var mainBinding: ActivityMainBinding
 
+    var preferenceHelper: PreferenceHelper? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -17,7 +19,14 @@ class MainActivity : AppCompatActivity() {
         val view = mainBinding.root
         setContentView(view)
 
-        showFragmentByTag(FragmentMain.TAG)
+        preferenceHelper = PreferenceHelper(this)
+
+        if (preferenceHelper!!.getIsLogin()) {
+            showFragmentByTag(FragmentMain.TAG)
+        }
+        else {
+            showFragmentByTag(FragmentLogin.TAG)
+        }
     }
 
     private fun showFragmentByTag(tag: String) {
@@ -25,7 +34,8 @@ class MainActivity : AppCompatActivity() {
         if (fragment == null) {
             if (FragmentMain.TAG == tag) {
                 fragment = FragmentMain()
-            } else if (FragmentLogin.TAG == tag) {
+            }
+            else if (FragmentLogin.TAG == tag) {
                 fragment = FragmentLogin()
             }
         }
@@ -33,8 +43,7 @@ class MainActivity : AppCompatActivity() {
         if (fragment != null) {
             val ft = supportFragmentManager.beginTransaction()
             ft.replace(R.id.layoutContainer, fragment, tag)
-
-            ft.addToBackStack(null) // add fragment transaction to the back stack
+            //ft.addToBackStack(null) // add fragment transaction to the back stack
 
             ft.commit()
         }

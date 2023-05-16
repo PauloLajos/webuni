@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import hu.webuni.familybudget.PreferenceHelper
 import hu.webuni.familybudget.databinding.FragmentMainBinding
 
 class FragmentMain : Fragment() {
@@ -15,8 +16,9 @@ class FragmentMain : Fragment() {
     private var _binding: FragmentMainBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+    private val mainBinding get() = _binding!!
 
+    private var preferenceHelper: PreferenceHelper? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,7 +27,11 @@ class FragmentMain : Fragment() {
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        return binding.root
+        preferenceHelper = PreferenceHelper(requireContext())
+
+        mainBinding.tvName.text = preferenceHelper!!.getName()
+
+        return mainBinding.root
     }
 
     override fun onDestroyView() {
