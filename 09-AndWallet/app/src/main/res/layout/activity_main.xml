@@ -52,12 +52,30 @@
                         android:inputType="number" />
                 </LinearLayout>
 
-                <ToggleButton
-                    android:id="@+id/tbInOrOut"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textOff="@string/outcome"
-                    android:textOn="@string/income" />
+                    android:orientation="horizontal">
+
+                    <ToggleButton
+                        android:id="@+id/tbInOrOut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textOff="@string/outcome"
+                        android:textOn="@string/income" />
+
+                    <Button
+                        android:id="@+id/btSave"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/save" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btSum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary" />
             </LinearLayout>
 
             <ImageView
@@ -90,14 +108,5 @@
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:contentDescription="@string/add_item" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

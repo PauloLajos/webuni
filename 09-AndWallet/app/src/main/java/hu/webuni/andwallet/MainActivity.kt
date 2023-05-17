@@ -1,11 +1,7 @@
 package hu.webuni.andwallet
 
-import android.content.Context
-import android.inputmethodservice.Keyboard
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -61,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 mainBinding.recyclerBookingView.setHasFixedSize(true)
                 mainBinding.recyclerBookingView.adapter = bookingAdapter
 
-                mainBinding.fab.setOnClickListener {
+                mainBinding.btSave.setOnClickListener {
                     launchAddItemActivity()
                 }
             }
