@@ -2,6 +2,7 @@ package hu.webuni.andwallet
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import hu.webuni.andwallet.adapter.BookingAdapter
 import hu.webuni.andwallet.data.BookingData
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var bookingAdapter: BookingAdapter
+    private lateinit var bookingData: BookingData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,25 @@ class MainActivity : AppCompatActivity() {
         val itemTouchHelper = ItemTouchHelper(touchCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
+        binding.btSave.setOnClickListener {
+            bookingData = BookingData(
+                binding.etName.text?.toString() ?: "" ,
+                binding.etAmount.text.toString().toIntOrNull() ?: 0,
+                binding.tbInOrOut.isChecked ?: false
+            )
+
+            if (bookingData.name != "" && bookingData.amount != 0) {
+                bookingAdapter.addBookingItem(
+                    bookingData
+                )
+                binding.etName.text.clear()
+                binding.etAmount.text.clear()
+                binding.tbInOrOut.isChecked = false
+            }
+            else {
+                Toast.makeText(this,"The Name or Amount field cannot be empty", Toast.LENGTH_LONG).show()
+            }
+        }
         saveData()
     }
 
