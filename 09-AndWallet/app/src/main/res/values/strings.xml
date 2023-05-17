@@ -3,4 +3,10 @@
     <string name="wallet">Wallet logo</string>
     <string name="wallet_list">Wallet List</string>
     <string name="add_item">Add Item</string>
+    <string name="outcome">Outcome</string>
+    <string name="income">Income</string>
+    <string name="amount">Amount</string>
+    <string name="name">Name</string>
+    <string name="delete">Delete</string>
+    <string name="sum_item">Summary</string>
 </resources>

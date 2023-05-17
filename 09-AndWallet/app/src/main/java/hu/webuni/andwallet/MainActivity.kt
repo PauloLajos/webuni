@@ -1,12 +1,18 @@
 package hu.webuni.andwallet
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.inputmethodservice.Keyboard
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.webuni.andwallet.adapter.BookingAdapter
-import hu.webuni.andwallet.data.BookingItem
-import hu.webuni.andwallet.data.BookingDAO
 import hu.webuni.andwallet.data.AppDatabase
+import hu.webuni.andwallet.data.BookingDAO
+import hu.webuni.andwallet.data.BookingItem
 import hu.webuni.andwallet.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var shoppingAdapter: ShoppingAdapter
 
  */
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,13 +62,43 @@ class MainActivity : AppCompatActivity() {
                 mainBinding.recyclerBookingView.adapter = bookingAdapter
 
                 mainBinding.fab.setOnClickListener {
-                    launchSumItemActivity()
+                    launchAddItemActivity()
                 }
             }
         }.start()
     }
 
-    private fun launchSumItemActivity() {
-        TODO("Summary screen")
+    private fun launchAddItemActivity() {
+        Thread {
+            val bookingItem = BookingItem(null,
+                mainBinding.etName.text?.toString() ?: "" ,
+                mainBinding.etAmount.text.toString().toIntOrNull() ?: 0,
+                mainBinding.tbInOrOut.isChecked ?: false
+            )
+
+            if (bookingItem.name != "" && bookingItem.amount != 0) {
+
+                bookingDao.insertBooking(bookingItem)
+
+                runOnUiThread {
+                    // Update list
+                    bookingItemList.add(bookingItem)
+                    bookingAdapter.notifyItemInserted(bookingItemList.lastIndex)
+
+                    mainBinding.etName.text.clear()
+                    mainBinding.etAmount.text.clear()
+                    mainBinding.tbInOrOut.isChecked = false
+
+                    window.setSoftInputMode(
+                        WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                    )
+                }
+            }
+            else {
+                runOnUiThread {
+                    Toast.makeText(this,"The Name or Amount field cannot be empty", Toast.LENGTH_LONG).show()
+                }
+            }
+        }.start()
     }
 }

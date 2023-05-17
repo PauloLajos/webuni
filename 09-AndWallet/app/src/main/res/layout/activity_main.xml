@@ -12,37 +12,71 @@
         android:id="@+id/app_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:fitsSystemWindows="true"
-        app:liftOnScroll="true"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        >
+        app:liftOnScroll="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="@string/wallet_list"
             app:collapsedTitleTextColor="@color/white"
-            app:expandedTitleTextColor="@color/white">
+            app:expandedTitleTextColor="@color/white"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etName"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:hint="@string/name"
+                        android:inputType="text" />
+
+                    <EditText
+                        android:id="@+id/etAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="@string/amount"
+                        android:inputType="number" />
+                </LinearLayout>
+
+                <ToggleButton
+                    android:id="@+id/tbInOrOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="@string/outcome"
+                    android:textOn="@string/income" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/expandedImage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/wallet"
+                android:alpha=".3"
+                android:contentDescription="@string/wallet"
                 android:scaleType="centerCrop"
-                android:contentDescription="@string/wallet" />
+                android:src="@drawable/wallet"
+                android:visibility="visible" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:visibility="invisible"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat"
-                />
+                app:popupTheme="@style/ThemeOverlay.AppCompat" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
