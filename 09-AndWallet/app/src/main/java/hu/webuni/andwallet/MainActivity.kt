@@ -2,68 +2,68 @@ package hu.webuni.andwallet
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import hu.webuni.andwallet.adapter.BookingAdapter
-import hu.webuni.andwallet.data.BookingData
+import hu.webuni.andwallet.data.BookingItem
+import hu.webuni.andwallet.data.BookingDAO
+import hu.webuni.andwallet.data.AppDatabase
 import hu.webuni.andwallet.databinding.ActivityMainBinding
-import hu.webuni.andwallet.touch.BookingRecyclerTouchCallback
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var mainBinding: ActivityMainBinding
 
-    companion object {
-        const val PREF_SETTINGS = "PREF_SETTINGS"
-        const val KEY_LAST_OPENED = "KEY_LAST_OPENED"
-        const val KEY_FIRST_START = "KEY_FIRST_START"
-    }
-
+    private lateinit var bookingDao: BookingDAO
+    private lateinit var bookingItemList: ArrayList<BookingItem>
     private lateinit var bookingAdapter: BookingAdapter
-    private lateinit var bookingData: BookingData
+
+/*
+    private lateinit var data: ShoppingDao
+    private lateinit var itemList: ArrayList<ShoppingItem>
+    private lateinit var shoppingAdapter: ShoppingAdapter
+
+ */
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
+        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+        val view = mainBinding.root
         setContentView(view)
 
-        bookingAdapter = BookingAdapter(this@MainActivity)
-        binding.recyclerView.adapter = bookingAdapter
-
-        val touchCallback = BookingRecyclerTouchCallback(bookingAdapter)
-        val itemTouchHelper = ItemTouchHelper(touchCallback)
-        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
-
-        binding.btSave.setOnClickListener {
-            bookingData = BookingData(
-                binding.etName.text?.toString() ?: "" ,
-                binding.etAmount.text.toString().toIntOrNull() ?: 0,
-                binding.tbInOrOut.isChecked ?: false
-            )
-
-            if (bookingData.name != "" && bookingData.amount != 0) {
-                bookingAdapter.addBookingItem(
-                    bookingData
-                )
-                binding.etName.text.clear()
-                binding.etAmount.text.clear()
-                binding.tbInOrOut.isChecked = false
-            }
-            else {
-                Toast.makeText(this,"The Name or Amount field cannot be empty", Toast.LENGTH_LONG).show()
-            }
-        }
-        saveData()
+        initRecyclerView()
     }
 
-    private fun saveData() {
-        val sp = getSharedPreferences(PREF_SETTINGS, MODE_PRIVATE)
-        val editor = sp.edit()
-        editor.putString(KEY_LAST_OPENED, Date(Calendar.getInstance().timeInMillis).toString())
-        editor.putBoolean(KEY_FIRST_START,false)
-        editor.apply()
+    private fun initRecyclerView() {
+        bookingItemList = ArrayList()
+        bookingDao = AppDatabase.getInstance(this).bookingDao()
+
+        Thread {
+            if (bookingDao.getAllBooking().isEmpty()) {
+                bookingDao.insertBooking(BookingItem(null, "Food",100,false))
+                bookingDao.insertBooking(BookingItem(null, "Salary",200,true))
+                bookingDao.insertBooking(BookingItem(null, "Wear",150,false))
+                bookingDao.insertBooking(BookingItem(null, "Bonus",25, true))
+                bookingDao.insertBooking(BookingItem(null, "Book",55, false))
+            }
+            bookingItemList.addAll(bookingDao.getAllBooking())
+
+            runOnUiThread {
+                bookingAdapter = BookingAdapter(bookingItemList, this@MainActivity)
+
+                mainBinding.recyclerBookingView.layoutManager = LinearLayoutManager(this@MainActivity)
+                mainBinding.recyclerBookingView.setHasFixedSize(true)
+                mainBinding.recyclerBookingView.adapter = bookingAdapter
+
+                mainBinding.fab.setOnClickListener {
+                    launchSumItemActivity()
+                }
+            }
+        }.start()
+    }
+
+    private fun launchSumItemActivity() {
+        TODO("Summary screen")
     }
 }
