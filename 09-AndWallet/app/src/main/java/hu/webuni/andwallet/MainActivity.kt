@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.webuni.andwallet.adapter.BookingAdapter
 import hu.webuni.andwallet.data.AppDatabase
-import hu.webuni.andwallet.data.BookingDAO
+import hu.webuni.andwallet.data.BookingDao
 import hu.webuni.andwallet.data.BookingItem
 import hu.webuni.andwallet.databinding.ActivityMainBinding
 
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mainBinding: ActivityMainBinding
 
-    private lateinit var bookingDao: BookingDAO
+    private lateinit var bookingDao: BookingDao
     private lateinit var bookingItemList: ArrayList<BookingItem>
     private lateinit var bookingAdapter: BookingAdapter
 
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             val bookingItem = BookingItem(null,
                 mainBinding.etName.text?.toString() ?: "" ,
                 mainBinding.etAmount.text.toString().toIntOrNull() ?: 0,
-                mainBinding.tbInOrOut.isChecked ?: false
+                mainBinding.tbInOrOut.isChecked
             )
 
             if (bookingItem.name != "" && bookingItem.amount != 0) {

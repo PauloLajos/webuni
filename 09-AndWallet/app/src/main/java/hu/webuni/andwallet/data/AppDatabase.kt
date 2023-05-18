@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 @Database(entities = [BookingItem::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun bookingDao(): BookingDAO
+    abstract fun bookingDao(): BookingDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null

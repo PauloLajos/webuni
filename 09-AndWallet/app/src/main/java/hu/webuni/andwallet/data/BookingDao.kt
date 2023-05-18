@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface BookingDAO {
+interface BookingDao {
 
     @Query("SELECT * FROM booking")
     fun getAllBooking(): List<BookingItem>
