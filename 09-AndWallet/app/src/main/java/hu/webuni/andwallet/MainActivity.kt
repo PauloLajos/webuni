@@ -13,6 +13,8 @@ import hu.webuni.andwallet.data.AppDatabase
 import hu.webuni.andwallet.data.BookingDao
 import hu.webuni.andwallet.data.BookingItem
 import hu.webuni.andwallet.databinding.ActivityMainBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +23,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bookingDao: BookingDao
     private lateinit var bookingItemList: ArrayList<BookingItem>
     private lateinit var bookingAdapter: BookingAdapter
+
+    companion object {
+        const val PREF_SETTINGS = "PREF_SETTINGS"
+        const val KEY_LAST_OPENED = "KEY_LAST_OPENED"
+        const val KEY_FIRST_START = "KEY_FIRST_START"
+    }
 
     private val positiveButtonClick = { _: DialogInterface, _: Int ->
         Thread {
@@ -77,14 +85,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         initRecyclerView()
+
+        savePreferenceData()
+    }
+
+    private fun savePreferenceData() {
+        val sharedPreferences = getSharedPreferences(PREF_SETTINGS, MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString(KEY_LAST_OPENED, Date(Calendar.getInstance().timeInMillis).toString())
+        editor.putBoolean(KEY_FIRST_START,false)
+        editor.apply()
     }
 
     private fun initRecyclerView() {
         bookingItemList = ArrayList()
         bookingDao = AppDatabase.getInstance(this).bookingDao()
 
+        val firstStart = isAppFirstStart()
         Thread {
-            if (bookingDao.getAllBooking().isEmpty()) {
+            //Test data
+            if (bookingDao.getAllBooking().isEmpty() && firstStart) {
                 bookingDao.insertBooking(BookingItem(null, "Food",100,false))
                 bookingDao.insertBooking(BookingItem(null, "Salary",200,true))
                 bookingDao.insertBooking(BookingItem(null, "Wear",150,false))
@@ -117,6 +137,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }.start()
+    }
+
+    private fun isAppFirstStart(): Boolean {
+        val sharedPreferences = getSharedPreferences(PREF_SETTINGS, MODE_PRIVATE)
+        return sharedPreferences.getBoolean(KEY_FIRST_START, true)
     }
 
     private fun launchAddItemActivity() {

@@ -1,5 +1,9 @@
 package hu.webuni.andwallet
 
+/**
+ * PIN: 5738
+ */
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,7 +20,7 @@ import java.io.IOException
 
 class WelcomeActivity : AppCompatActivity() {
 
-    lateinit var welcomeBinding: ActivityWelcomeBinding
+    private lateinit var welcomeBinding: ActivityWelcomeBinding
 
     private var alertDialog: AlertDialog? = null
 

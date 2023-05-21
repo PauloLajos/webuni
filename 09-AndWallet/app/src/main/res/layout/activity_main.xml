@@ -1,29 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:liftOnScroll="true">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:collapsedTitleTextColor="@color/white"
-            app:expandedTitleTextColor="@color/white"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+        android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,27 +85,7 @@
                     android:text="@string/balance" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/expandedImage"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:alpha=".3"
-                android:contentDescription="@string/wallet"
-                android:scaleType="centerCrop"
-                android:src="@drawable/wallet"
-                android:visibility="visible" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:visibility="invisible"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat" />
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerBookingView"
         android:layout_width="match_parent"
@@ -128,6 +94,4 @@
         android:padding="8dp"
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
