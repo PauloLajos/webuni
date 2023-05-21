@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.result.Result as FuelResult
 import com.github.kittinunf.fuel.json.responseJson
 import hu.webuni.andwallet.databinding.ActivityWelcomeBinding
 import org.json.JSONException
@@ -20,7 +21,6 @@ class WelcomeActivity : AppCompatActivity() {
     private var alertDialog: AlertDialog? = null
 
     private var loginURL = "https://api.paulolajos.hu/andwallet/pinlogin.php"
-    private val loginTask = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,19 +30,27 @@ class WelcomeActivity : AppCompatActivity() {
         setContentView(view)
 
         welcomeBinding.btPin.setOnClickListener {
-            try {
-                //Call login api script
-                login()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            } catch (e: JSONException) {
-                e.printStackTrace()
+            if (welcomeBinding.etPin.text.length == 4) {
+                try {
+                    //Call login api script
+                    loginWithApi()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
             }
+            else
+                Toast.makeText(
+                    this,
+                    "Please enter 4 digit PIN code!",
+                    Toast.LENGTH_SHORT
+                ).show()
         }
     }
 
-    private fun login() {
-        showSimpleProgressDialog(null, "Loading...", false)
+    private fun loginWithApi() {
+        showSimpleProgressDialog(null, "Check PIN code from network...", false)
 
         try {
             Fuel.post(
@@ -50,51 +58,53 @@ class WelcomeActivity : AppCompatActivity() {
                     "pin" to welcomeBinding.etPin.text.toString(),
                 )
             ).responseJson { _, response, result ->
-                onTaskCompleted(result.get().content, loginTask)
+                val res2 = result
+                when (result) {
+                    is FuelResult.Failure -> {
+                        Toast.makeText(
+                            this,
+                            getErrorMessage(res2.get().content),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    is FuelResult.Success -> {
+                        try {
+                            val jsonObject = JSONObject(result.get().content)
+
+                            if (jsonObject.optString("status") == "true") {
+                                //removeSimpleProgressDialog()  //will remove progress dialog
+
+                                Toast.makeText(
+                                    this,
+                                    "Login Successfully!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                val intent = Intent(this@WelcomeActivity, MainActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent)
+
+                                finish()
+                            }
+                            else
+                                Toast.makeText(this, getErrorMessage(res2.get().content), Toast.LENGTH_SHORT)
+                                    .show()
+
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+
+                removeSimpleProgressDialog()  //will remove progress dialog
 
                 Log.d("loginResponseJson", response.toString())
-
             }
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
 
         }
-    }
-
-    private fun onTaskCompleted(response: String, task: Int) {
-        Log.d("loginResponseJson", response)
-
-        removeSimpleProgressDialog()  //will remove progress dialog
-
-        when (task) {
-            loginTask -> if (isSuccess(response)) {
-
-                val intent = Intent(this@WelcomeActivity, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-
-                finish()
-
-                Toast.makeText(this, "Login Successfully!", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                Toast.makeText(this, getErrorMessage(response), Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-    }
-
-    private fun isSuccess(response: String): Boolean {
-        try {
-            val jsonObject = JSONObject(response)
-            return jsonObject.optString("status") == "true"
-
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-
-        return false
     }
 
     private fun getErrorMessage(response: String): String {
@@ -106,7 +116,7 @@ class WelcomeActivity : AppCompatActivity() {
             e.printStackTrace()
         }
 
-        return "No data"
+        return "Not loading data"
     }
 
     private fun showSimpleProgressDialog(
@@ -129,7 +139,6 @@ class WelcomeActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     private fun removeSimpleProgressDialog() {
@@ -142,12 +151,10 @@ class WelcomeActivity : AppCompatActivity() {
             }
         } catch (ie: IllegalArgumentException) {
             ie.printStackTrace()
-
         } catch (re: RuntimeException) {
             re.printStackTrace()
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 }
