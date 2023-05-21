@@ -46,7 +46,14 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+    // Database library
     implementation 'androidx.room:room-runtime:2.5.1'
     annotationProcessor 'androidx.room:room-compiler:2.5.1'
     kapt 'androidx.room:room-compiler:2.5.1'
+
+    //HTTP networking library
+    implementation 'com.github.kittinunf.fuel:fuel:2.3.1'
+    implementation 'com.github.kittinunf.fuel:fuel-android:2.3.1'
+    implementation 'com.github.kittinunf.fuel:fuel-json:2.3.1'
+
 }

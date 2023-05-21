@@ -13,13 +13,14 @@
         android:textColor="#000"
         android:text="@string/pin"/>
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/etPin"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:hint="@string/_0000"
         android:inputType="numberPassword" />
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/btPin"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
