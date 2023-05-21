@@ -13,4 +13,11 @@
     <string name="summary">Summary</string>
     <string name="balance">Balance: %1$d</string>
     <string name="deleteAll">Delete All</string>
+    <string name="sumBalance">Balance: %1$d</string>
+    <string name="sumExpense">Expense: %1$d</string>
+    <string name="sumIncome">Income: %1$d</string>
+    <string name="back">Back</string>
+    <string name="pin">PIN</string>
+    <string name="_0000">0000</string>
+    <string name="enter">Enter</string>
 </resources>

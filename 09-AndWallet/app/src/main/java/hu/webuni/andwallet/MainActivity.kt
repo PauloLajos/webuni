@@ -1,6 +1,7 @@
 package hu.webuni.andwallet
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
@@ -65,6 +66,14 @@ class MainActivity : AppCompatActivity() {
                     "There is nothing to delete...",
                     Toast.LENGTH_LONG
                 ).show()
+        }
+
+        mainBinding.btSum.setOnClickListener {
+            val intent = Intent(this@MainActivity, SummaryActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+
+            finish()
         }
 
         initRecyclerView()

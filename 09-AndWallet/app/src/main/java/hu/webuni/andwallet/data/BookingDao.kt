@@ -1,9 +1,6 @@
 package hu.webuni.andwallet.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
-
-data class SumBookingIncome(var sumAmount: Double)
 
 @Dao
 interface BookingDao {
@@ -21,7 +18,10 @@ interface BookingDao {
     fun deleteAll()
 
     @Query(value = "SELECT SUM(amount) as sumAmount FROM booking WHERE income = true")
-    fun getSumIncome(): LiveData<SumBookingIncome>
+    fun getSumIncome(): Int
+
+    @Query(value = "SELECT SUM(amount) as sumAmount FROM booking WHERE income = false")
+    fun getSumExpense(): Int
 
     @Query(value = "SELECT SUM(amount * CASE income WHEN true THEN 1 WHEN false THEN -1 END) as balance FROM booking")
     fun getSumBalance(): Int
