@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -30,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -61,6 +61,7 @@
                         android:id="@+id/tbInOrOut"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
                         android:textOff="@string/outcome"
                         android:textOn="@string/income" />
 
@@ -71,16 +72,30 @@
                         android:text="@string/save" />
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btSum"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/summary" />
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btSum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:text="@string/summary" />
+                    <Button
+                        android:id="@+id/btDeleteAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/deleteAll" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvBalance"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:layout_gravity="center"
                     android:text="@string/balance" />
             </LinearLayout>
 

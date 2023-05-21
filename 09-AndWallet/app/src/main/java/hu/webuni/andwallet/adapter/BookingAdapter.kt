@@ -13,7 +13,7 @@ import hu.webuni.andwallet.databinding.BookingItemBinding
 class BookingAdapter(
         private var bookingItemList: ArrayList<BookingItem>,
         private val context: Context,
-        private var onItemClickListener: OnItemClickListener
+        private var onItemDeleteClickListener: OnItemDeleteClickListener
     ) : RecyclerView.Adapter<BookingAdapter.ItemViewHolder>() {
 
     private val bookingDao = AppDatabase.getInstance(context).bookingDao()
@@ -33,8 +33,8 @@ class BookingAdapter(
         }
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(bookingBalance: Int)
+    interface OnItemDeleteClickListener {
+        fun onItemDeleteClick(bookingBalance: Int)
     }
 
     private fun deleteBookingItem(position: Int) {
@@ -47,7 +47,7 @@ class BookingAdapter(
                 bookingItemList.removeAt(position)
                 notifyItemRemoved(position)
 
-                onItemClickListener.onItemClick(bookingBalance)
+                onItemDeleteClickListener.onItemDeleteClick(bookingBalance)
             }
         }.start()
     }

@@ -1,8 +1,10 @@
 package hu.webuni.andwallet
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.webuni.andwallet.adapter.BookingAdapter
@@ -19,12 +21,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bookingItemList: ArrayList<BookingItem>
     private lateinit var bookingAdapter: BookingAdapter
 
-/*
-    private lateinit var data: ShoppingDao
-    private lateinit var itemList: ArrayList<ShoppingItem>
-    private lateinit var shoppingAdapter: ShoppingAdapter
+    private val positiveButtonClick = { _: DialogInterface, _: Int ->
+        Thread {
+            bookingDao.deleteAll()
 
- */
+            runOnUiThread {
+                bookingItemList.clear()
+
+                val size = bookingAdapter.itemCount
+                bookingAdapter.notifyItemRangeRemoved(0, size)
+
+                mainBinding.recyclerBookingView.removeAllViews()
+
+                showBalanceInTextview(0)
+            }
+        }.start()
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +45,27 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         val view = mainBinding.root
         setContentView(view)
+
+        mainBinding.btDeleteAll.setOnClickListener {
+            if (bookingAdapter.itemCount>0){
+                val builder = AlertDialog.Builder(this)
+
+                with(builder) {
+                    setTitle("Delete ALL items")
+                    setMessage("Are you sure?")
+                    setPositiveButton("OK", positiveButtonClick)
+                    setNegativeButton("CANCEL", null)
+                }
+                val alertDialog = builder.create()
+                alertDialog.show()
+            }
+            else
+                Toast.makeText(
+                    this,
+                    "There is nothing to delete...",
+                    Toast.LENGTH_LONG
+                ).show()
+        }
 
         initRecyclerView()
     }
@@ -56,8 +90,8 @@ class MainActivity : AppCompatActivity() {
                 bookingAdapter = BookingAdapter(
                     bookingItemList,
                     this@MainActivity,
-                    object : BookingAdapter.OnItemClickListener {
-                        override fun onItemClick(bookingBalance: Int) {
+                    object : BookingAdapter.OnItemDeleteClickListener {
+                        override fun onItemDeleteClick(bookingBalance: Int) {
                             showBalanceInTextview(bookingBalance)
                         }
                     }

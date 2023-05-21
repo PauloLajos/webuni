@@ -12,4 +12,5 @@
     <string name="save">Save</string>
     <string name="summary">Summary</string>
     <string name="balance">Balance: %1$d</string>
+    <string name="deleteAll">Delete All</string>
 </resources>

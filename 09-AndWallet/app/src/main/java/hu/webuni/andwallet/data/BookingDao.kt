@@ -1,10 +1,7 @@
 package hu.webuni.andwallet.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 data class SumBookingIncome(var sumAmount: Double)
 
@@ -19,6 +16,9 @@ interface BookingDao {
 
     @Delete
     fun deleteBooking(bookingData: BookingItem)
+
+    @Query("DELETE FROM booking")
+    fun deleteAll()
 
     @Query(value = "SELECT SUM(amount) as sumAmount FROM booking WHERE income = true")
     fun getSumIncome(): LiveData<SumBookingIncome>
