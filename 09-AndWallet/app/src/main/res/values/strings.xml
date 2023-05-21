@@ -11,4 +11,5 @@
     <string name="sum_item">Summary</string>
     <string name="save">Save</string>
     <string name="summary">Summary</string>
+    <string name="balance">Balance: %1$d</string>
 </resources>

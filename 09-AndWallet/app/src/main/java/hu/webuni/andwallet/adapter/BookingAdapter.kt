@@ -10,10 +10,13 @@ import hu.webuni.andwallet.data.AppDatabase
 import hu.webuni.andwallet.data.BookingItem
 import hu.webuni.andwallet.databinding.BookingItemBinding
 
-class BookingAdapter(private var bookingItemList: ArrayList<BookingItem>, private val context: Context) :
-    RecyclerView.Adapter<BookingAdapter.ItemViewHolder>() {
+class BookingAdapter(
+        private var bookingItemList: ArrayList<BookingItem>,
+        private val context: Context,
+        private var onItemClickListener: OnItemClickListener
+    ) : RecyclerView.Adapter<BookingAdapter.ItemViewHolder>() {
 
-    private val data = AppDatabase.getInstance(context).bookingDao()
+    private val bookingDao = AppDatabase.getInstance(context).bookingDao()
 
     inner class ItemViewHolder(private val itemBinding: BookingItemBinding): RecyclerView.ViewHolder(itemBinding.root) {
 
@@ -30,12 +33,21 @@ class BookingAdapter(private var bookingItemList: ArrayList<BookingItem>, privat
         }
     }
 
+    interface OnItemClickListener {
+        fun onItemClick(bookingBalance: Int)
+    }
+
     private fun deleteBookingItem(position: Int) {
         Thread {
-            data.deleteBooking(bookingItemList[position])
+            bookingDao.deleteBooking(bookingItemList[position])
+
+            val bookingBalance = bookingDao.getSumBalance()
+
             (context as MainActivity).runOnUiThread {
                 bookingItemList.removeAt(position)
                 notifyItemRemoved(position)
+
+                onItemClickListener.onItemClick(bookingBalance)
             }
         }.start()
     }

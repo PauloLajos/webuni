@@ -50,12 +50,24 @@ class MainActivity : AppCompatActivity() {
             }
             bookingItemList.addAll(bookingDao.getAllBooking())
 
+            val bookingBalance = bookingDao.getSumBalance()
+
             runOnUiThread {
-                bookingAdapter = BookingAdapter(bookingItemList, this@MainActivity)
+                bookingAdapter = BookingAdapter(
+                    bookingItemList,
+                    this@MainActivity,
+                    object : BookingAdapter.OnItemClickListener {
+                        override fun onItemClick(bookingBalance: Int) {
+                            showBalanceInTextview(bookingBalance)
+                        }
+                    }
+                )
 
                 mainBinding.recyclerBookingView.layoutManager = LinearLayoutManager(this@MainActivity)
                 mainBinding.recyclerBookingView.setHasFixedSize(true)
                 mainBinding.recyclerBookingView.adapter = bookingAdapter
+
+                showBalanceInTextview(bookingBalance)
 
                 mainBinding.btSave.setOnClickListener {
                     launchAddItemActivity()
@@ -76,10 +88,14 @@ class MainActivity : AppCompatActivity() {
 
                 bookingDao.insertBooking(bookingItem)
 
+                val bookingBalance = bookingDao.getSumBalance()
+
                 runOnUiThread {
                     // Update list
                     bookingItemList.add(bookingItem)
                     bookingAdapter.notifyItemInserted(bookingItemList.lastIndex)
+
+                    showBalanceInTextview(bookingBalance)
 
                     mainBinding.etName.text.clear()
                     mainBinding.etAmount.text.clear()
@@ -96,5 +112,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }.start()
+    }
+
+    private fun showBalanceInTextview(bookingBalance: Int) {
+        mainBinding.tvBalance.text = getString(R.string.balance, bookingBalance)
     }
 }
