@@ -43,8 +43,7 @@ class WelcomeActivity : AppCompatActivity() {
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
-            }
-            else
+            } else
                 Toast.makeText(
                     this,
                     "Please enter 4 digit PIN code!",
@@ -58,16 +57,17 @@ class WelcomeActivity : AppCompatActivity() {
 
         try {
             Fuel.post(
-                loginURL, listOf(
+                loginURL,
+                listOf(
                     "pin" to welcomeBinding.etPin.text.toString(),
                 )
             ).responseJson { _, response, result ->
-                val res2 = result
                 when (result) {
                     is FuelResult.Failure -> {
+                        val ex = result.getException()
                         Toast.makeText(
                             this,
-                            getErrorMessage(res2.get().content),
+                            "$loginURL ${ex.message}",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -76,7 +76,6 @@ class WelcomeActivity : AppCompatActivity() {
                             val jsonObject = JSONObject(result.get().content)
 
                             if (jsonObject.optString("status") == "true") {
-                                //removeSimpleProgressDialog()  //will remove progress dialog
 
                                 Toast.makeText(
                                     this,
@@ -89,9 +88,12 @@ class WelcomeActivity : AppCompatActivity() {
                                 startActivity(intent)
 
                                 finish()
-                            }
-                            else
-                                Toast.makeText(this, getErrorMessage(res2.get().content), Toast.LENGTH_SHORT)
+                            } else
+                                Toast.makeText(
+                                    this,
+                                    getErrorMessage(result.get().content),
+                                    Toast.LENGTH_SHORT
+                                )
                                     .show()
 
                         } catch (e: JSONException) {
