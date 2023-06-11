@@ -4,6 +4,12 @@ Create useful .gitignore files for your project
 
 https://www.toptal.com/developers/gitignore
 
+**WinEdt Unicode Dictionaries**
+
+Add a dictionary for spell check in Android Studio / IntelliJ Idea
+
+https://www.winedt.org/dict.html
+
 **IconKitchen - App Icon Generator**
 
 https://icon.kitchen
