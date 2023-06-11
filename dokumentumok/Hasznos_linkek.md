@@ -1,3 +1,9 @@
+**Git gitignore helper**
+
+Create useful .gitignore files for your project
+
+https://www.toptal.com/developers/gitignore
+
 **IconKitchen - App Icon Generator**
 
 https://icon.kitchen
@@ -36,7 +42,7 @@ https://developer.android.com/guide/topics/ui/notifiers/toasts.html
 
 https://developer.android.com/training/snackbar/action.htm
 
-**12 Key Tools and Resources for Android Development **
+**12 Key Tools and Resources for Android Development**
 
 https://www.developerdrive.com/best-android-development-tools-resources/
 
@@ -53,4 +59,5 @@ https://developer.android.com/develop/ui/views/layout/constraint-layout#kts
 https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
 
 **API kulcsok tárolása**
+
 https://guides.codepath.com/android/storing-secret-keys-in-android
