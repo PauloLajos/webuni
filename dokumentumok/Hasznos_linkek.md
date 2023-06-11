@@ -51,3 +51,6 @@ https://developer.android.com/develop/ui/views/layout/constraint-layout#kts
 **GitHub - Basic writing and formatting syntax**
 
 https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+
+**API kulcsok tárolása**
+https://guides.codepath.com/android/storing-secret-keys-in-android
